@@ -19,12 +19,13 @@
 import os, sys, re
 
 nulldev = None
+verbose = 0
 
 class ExecProblem(Exception):
     pass
 
 def mainexec(program, args = [], child_stdout = None,
-             child_stdin = None, child_stderr = None, wait = 1):
+             child_stdin = None, child_stderr = None, wait = 1, closefds = []):
     """Runs the program as a sub-process, passing to it args if specified.
     The sub-process has its file descriptors adjusted as per the arguments.
 
@@ -32,19 +33,22 @@ def mainexec(program, args = [], child_stdout = None,
     os.waitpid().
 
     If wait is 0, return the PID immediately."""
-
+    global verbose
     def setfds(source, dest):
         if source != None:
             if hasattr(source, 'fileno'):
                 source = source.fileno()
             os.dup2(source, dest)
             
-    
     pid = os.fork()
     if not pid:
+        if verbose:
+            print "Running: ", program, args
         setfds(child_stdin, 0)
         setfds(child_stdout, 1)
         setfds(child_stderr, 2)
+        for fd in closefds:
+            os.close(fd)
         os.execvp(program, (program,) + tuple(args))
         sys.exit(255)
     else:
@@ -131,7 +135,7 @@ def maketree(path, addpath = None, ignore = []):
                 newaddpath = os.path.join(addpath, item)
             else:
                 newaddpath = item
-            others.extend(maketree(dirname, newaddpath))
+            others.extend(maketree(dirname, newaddpath, ignore))
         else:
             if addpath:
                 retval.append(os.path.join(addpath, item))
@@ -148,3 +152,18 @@ def sorttree(srctree):
     return dirs + files
     
         
+def copyfrom(srcdir, destdir):
+    pipes = os.pipe()
+    verbargs = []
+    if verbose:
+        verbargs.append('-v')
+    readerpid = chdircmd(srcdir, mainexec, "tar", ["-cSpf", "-", "."],
+                         child_stdout = pipes[1], wait = 0,
+                         closefds = [pipes[0]])
+    writerpid = chdircmd(destdir, mainexec, "tar", ["-xSpf", "-"] + verbargs,
+                         child_stdin = pipes[0], wait = 0, closefds = [pipes[1]])
+    os.close(pipes[0])
+    os.close(pipes[1])
+    checkpid(readerpid, 0)
+    checkpid(writerpid, 0)
+    

@@ -18,7 +18,7 @@
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from optparse import OptionParser
-from tla_support import tla_wc, tla_interact
+from tla_support import tla_wc, tla_interact, util
 import sys
 
 version = '0.0.1'
@@ -29,7 +29,11 @@ parser.add_option("-w", "--wc", dest="wc", default=".",
                   help="Set working copy to WC (defaults to current directory)", metavar="WC")
 parser.add_option("-c", "--changelog", dest="changelog", metavar="CHANGELOG",
                   help="Get changelog text from file CHANGELOG")
+parser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                  default=False, help="Show more status information")
+
 (options, args) = parser.parse_args()
+util.verbose = options.verbose
 
 if len(args) != 1:
     parser.error("Failed to specify a path to import.")

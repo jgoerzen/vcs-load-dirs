@@ -16,14 +16,14 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import sys
+import sys, os
 import util
 
 class interaction:
     def __init__(self, wcobj, importdir):
         self.wcobj = wcobj
-        self.importdir = importdir
-        self.actions = []
+        self.importdir = os.path.abspath(importdir)
+        self.actions = {'added': [], 'deleted': [], 'moved': []}
 
     def updateimportfiles(self):
         self.importfiles = util.maketree(self.importdir)
@@ -44,8 +44,6 @@ class interaction:
     def main(self):
         while 1:
             self.update()
-            print self.addedfiles
-            print self.deletedfiles
             if not (len(self.addedfiles) and len(self.deletedfiles)):
                 break
 
@@ -57,26 +55,25 @@ class interaction:
                     addfile = self.addedfiles[counter]
                 if counter < len(self.deletedfiles):
                     delfile = self.deletedfiles[counter]
-                print "%-3x %-35s %-35s" % (counter, addfile, delfile)
+                print "%-3x %-35s %-35s" % (counter, delfile, addfile)
+                counter += 1
             print "Syntax: (src dest [,src dest [,...]] to move, q to accept:"
             print "Command: ",
             try:
                 for command in sys.stdin.readline().strip().split(','):
+                    command = command.strip()
                     if command == 'q':
                         break
                     src, dest = command.split(' ')
                     src = int(src, 16)
                     dest = int(dest, 16)
-                    self.mv(self.addedfiles[src], self.deletedfiles[dest])
+                    self.mv(self.deletedfiles[src], self.addedfiles[dest])
             except:
+                raise
                 print "Error."
 
         self.catchup()
         
-    def mv(self, src, dest):
-        print "Fake mv: %s -> %s" % src, dest
-        self.actions.append(("moved", src, dest))
-
     def catchup(self):
         self.update()
         for file in self.addedfiles:
@@ -84,14 +81,44 @@ class interaction:
         for file in self.deletedfiles:
             self.delfile(file)
 
+        util.copyfrom(self.importdir, self.wcobj.wcpath)
+        self.writelog()
+        self.wcobj.commit()
+
+    def writelog(self):
+        logfile = self.wcobj.makelog()
+        fd = open(logfile, "w")
+        fd.write("Summary: Imported %s\n" % self.importdir)
+        fd.write("Keywords: \n\n")
+        fd.write("Imported %s\ninto %s\n\n" %
+                 (self.importdir, self.wcobj.gettreeversion()))
+        for action in self.actions:
+            if len(self.actions[action]):
+                fd.write("To manage the import, the following files were %s:\n" \
+                      % action)
+                for item in self.actions[action]:
+                    if len(item) == 2:
+                        fd.write("%s -> %s\n" % (item[0], item[1]))
+                    else:
+                        fd.write(item[0] + "\n")
+                fd.write("\n")
+        fd.close()
+        
+
     def addfile(self, file):
-        wc.addtag(file)
-        self.actions.append(("added", file, None))
+        self.wcobj.addtag(file)
+        self.actions['added'].append((file,))
 
     def delfile(self, file):
-        wc.deltag(file)
-        wc.delfile(file)
-        self.actions.append(("deleted", file, None))
+        self.wcobj.deltag(file)
+        self.wcobj.delfile(file)
+        self.actions['deleted'].append((file,))
     
         
+    def mv(self, src, dest):
+        print "%s -> %s" % (src, dest)
+        self.wcobj.movefile(src, dest)
+        self.wcobj.movetag(src, dest)
+        self.actions['moved'].append((src, dest))
+
         
