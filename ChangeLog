@@ -2,6 +2,21 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-10-14 01:44:33 GMT	John Goerzen <jgoerzen@complete.org>	patch-41
+
+    Summary:
+      Added darcs executable
+    Revision:
+      tla-load-dirs--head--1.0--patch-41
+
+
+    new files:
+     darcs_load_dirs tla_support/init.py
+
+    modified files:
+     ChangeLog tla_load_dirs
+
+
 2004-10-14 01:37:30 GMT	John Goerzen <jgoerzen@complete.org>	patch-40
 
     Summary:
