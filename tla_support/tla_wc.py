@@ -80,7 +80,11 @@ class wc:
 
 
     def delfile(self, file):
-        os.unlink(os.path.join(self.wcpath, file))
+        fullfile = os.path.join(self.wcpath, file)
+        if os.path.isfile(fullfile):
+            os.unlink(fullfile)
+        else:
+            util.safeexec("rm", ['-rf', fullfile])
 
     def deltag(self, file):
         util.chdircmd(self.wcpath, util.safeexec, "tla",
@@ -123,7 +127,7 @@ class wc:
             head, tail = os.path.split(head)
         if head and tail and not os.path.exists(head):
             self.makedirs(head, mode)
-        print "Created directory", %s
+        print "Created directory", name
         os.mkdir(name, mode)
         self.addtag(name)
         

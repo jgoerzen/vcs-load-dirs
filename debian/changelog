@@ -1,3 +1,15 @@
+tla-load-dirs (1.0.3) unstable; urgency=low
+
+  * Now properly rm -rf's a directory that is removed.
+
+ -- John Goerzen <jgoerzen@wile.excelhustler.com>  Wed,  3 Sep 2003 14:32:39 -0500
+
+tla-load-dirs (1.0.2) unstable; urgency=low
+
+  * Fixed a small syntax error in tla_wc.py.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed,  3 Sep 2003 14:04:21 -0500
+
 tla-load-dirs (1.0.1) unstable; urgency=low
 
   * New arg: --no-commit.
