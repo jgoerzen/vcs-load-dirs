@@ -40,4 +40,4 @@ if not wc.gettaggingmethod() in ['explicit']:
           wc.gettaggingmethod()
     sys.exit(1)
 
-tla_interact.main(wc, args[0])
+tla_interact.interaction(wc, args[0]).main()

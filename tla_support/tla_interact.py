@@ -17,22 +17,24 @@
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import sys
+import util
 
 class interaction:
     def __init__(self, wcobj, importdir):
         self.wcobj = wcobj
         self.importdir = importdir
+        self.actions = []
 
     def updateimportfiles(self):
-        self.importfiles = util.maketree(importdir)
+        self.importfiles = util.maketree(self.importdir)
 
     def updatewcfiles(self):
-        self.wcfiles = wcobj.gettree()
+        self.wcfiles = self.wcobj.gettree()
 
     def update(self):
-        self.updateimportfiles(self)
-        self.updatewcfiles(self)
-        self.updatechangedfiles(self)
+        self.updateimportfiles()
+        self.updatewcfiles()
+        self.updatechangedfiles()
 
     def updatechangedfiles(self):
         self.addedfiles = [x for x in self.importfiles if not x in self.wcfiles]
@@ -42,6 +44,8 @@ class interaction:
     def main(self):
         while 1:
             self.update()
+            print self.addedfiles
+            print self.deletedfiles
             if not (len(self.addedfiles) and len(self.deletedfiles)):
                 break
 
@@ -67,7 +71,27 @@ class interaction:
             except:
                 print "Error."
 
-        catchup(wcobj, addedfiles, deletedfiles)
+        self.catchup()
         
     def mv(self, src, dest):
         print "Fake mv: %s -> %s" % src, dest
+        self.actions.append(("moved", src, dest))
+
+    def catchup(self):
+        self.update()
+        for file in self.addedfiles:
+            self.addfile(file)
+        for file in self.deletedfiles:
+            self.delfile(file)
+
+    def addfile(self, file):
+        wc.addtag(file)
+        self.actions.append(("added", file, None))
+
+    def delfile(self, file):
+        wc.deltag(file)
+        wc.delfile(file)
+        self.actions.append(("deleted", file, None))
+    
+        
+        
