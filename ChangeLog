@@ -2,6 +2,22 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-10-14 01:51:52 GMT	John Goerzen <jgoerzen@complete.org>	patch-43
+
+    Summary:
+      Removed extra files
+    Revision:
+      tla-load-dirs--head--1.0--patch-43
+
+
+    removed files:
+     docs/darcs_load_dirs.1 docs/manpage.links docs/manpage.refs
+     docs/tla_load_dirs.1
+
+    modified files:
+     ChangeLog
+
+
 2004-10-14 01:51:22 GMT	John Goerzen <jgoerzen@complete.org>	patch-42
 
     Summary:
