@@ -1,2 +1,2 @@
-debian/tla-load-dirs/usr/lib usr/lib
+debian/tmp/usr/lib usr
 

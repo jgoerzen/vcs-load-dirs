@@ -60,22 +60,22 @@ install: build
 
 	# Add here commands to install the package into debian/tla-load-dirs.
 	#$(MAKE) install DESTDIR=$(CURDIR)/debian/tla-load-dirs
-	$(PYTHON) setup.py install --root=`pwd`/debian/$(PACKAGE) \
+	mkdir debian/tmp
+	$(PYTHON) setup.py install --root=`pwd`/debian/tmp \
 		--no-compile
 
 
-# Build architecture-independent files here.
-binary-indep: build install
+binary-arch: build install
 # We have nothing to do by default.
 
 # Build architecture-dependent files here.
-binary-arch: build install
+binary-indep: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs ChangeLog
-	dh_installdocs
-	dh_installexamples
-#	dh_install
+	dh_installchangelogs -i ChangeLog
+	dh_installdocs -i
+	dh_installexamples -i
+	dh_install -i
 #	dh_installmenu
 #	dh_installdebconf	
 #	dh_installlogrotate
@@ -85,19 +85,19 @@ binary-arch: build install
 #	dh_installinit
 #	dh_installcron
 #	dh_installinfo
-	dh_installman docs/*.1
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
+	dh_installman -i
+	dh_link -i
+	dh_strip -i
+	dh_compress -i
+	dh_fixperms -i
 #	dh_perl
-	dh_python
+	dh_python -i
 #	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+	dh_installdeb -i
+	dh_shlibdeps -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure

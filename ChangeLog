@@ -2,6 +2,26 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-10-14 02:18:09 GMT	John Goerzen <jgoerzen@complete.org>	patch-45
+
+    Summary:
+      Finished package for 1.0.14
+    Revision:
+      tla-load-dirs--head--1.0--patch-45
+
+
+    new files:
+     debian/.arch-ids/darcs-load-dirs.manpages.id
+     debian/.arch-ids/tla-load-dirs.install.id
+     debian/.arch-ids/tla-load-dirs.manpages.id
+     debian/darcs-load-dirs.manpages debian/tla-load-dirs.install
+     debian/tla-load-dirs.manpages
+
+    modified files:
+     ChangeLog debian/darcs-load-dirs.install
+     debian/load-dirs-common.install debian/rules
+
+
 2004-10-14 02:01:35 GMT	John Goerzen <jgoerzen@complete.org>	patch-44
 
     Summary:
