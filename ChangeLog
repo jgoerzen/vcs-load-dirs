@@ -2,6 +2,19 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2003-12-16 22:25:26 GMT	John Goerzen <jgoerzen@complete.org>	patch-37
+
+    Summary:
+      Fixed small logic error in debian/control'
+    Revision:
+      tla-load-dirs--head--1.0--patch-37
+
+    
+
+    modified files:
+     ChangeLog debian/control
+
+
 2003-12-16 22:23:58 GMT	John Goerzen <jgoerzen@complete.org>	patch-36
 
     Summary:
