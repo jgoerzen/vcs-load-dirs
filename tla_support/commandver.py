@@ -19,14 +19,31 @@
 import util
 tlasyn = None
 tlaobj = None
+tlacmd = None
+darcs = False
 
+def setdarcs(x):
+    global darcs, tlacmd
+    if (x):
+        tlacmd = "darcs"
+    else:
+        tlacmd = "tla"
+    print " TLACMD: ", tlacmd
+    darcs = x
+
+def isdarcs():
+    global darcs
+    return darcs
 
 def gettlasyntax():
     global tlasyn, tlaobj
     if tlasyn != None:
         return tlasyn
 
-    if util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.0.') != -1:
+    if isdarcs():
+        tlasyn = 'darcs'
+        tlaobj = Darcs()
+    elif util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.0.') != -1:
         tlasyn = '1.0'
         tlaobj = Tla10()
     else:
@@ -41,6 +58,7 @@ class Tla10:
     delete = 'delete-tag'
     update = 'update --in-place .'
     replay = 'replay --in-place .'
+    commit = 'commit'
 
 class Tla11:
     tagging_method = 'id-tagging-method'
@@ -49,6 +67,16 @@ class Tla11:
     delete = 'delete'
     update = 'update'
     replay = 'replay'
+    commit = 'commit'
+
+class Darcs:
+    tagging_method = None
+    add = 'add'
+    move = 'mv'
+    delete = 'remove'
+    update = 'pull'
+    replay = 'pull'
+    commit = 'record'
 
 def cmd():
     global tlaobj

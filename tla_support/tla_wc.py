@@ -18,7 +18,7 @@
 
 import util
 import os.path
-from commandver import cmd
+from commandver import cmd, isdarcs, tlacmd
 
 class wc:
     """Object for a working copy."""
@@ -30,8 +30,13 @@ class wc:
             raise Exception, "%s is not a tla working copy" % self.wcpath
 
     def gettreeversion(self):
-        return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
-                             ['tree-version'])[0].strip() 
+        if isdarcs():
+            util.chdircmd(self.wcpath, util.getstdoutsafeexec, "darcs",
+                          ['check'])
+            return "Darcs repository"
+        else:
+            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+                                 ['tree-version'])[0].strip() 
 
     def wcverify(self):
         try:
@@ -41,16 +46,19 @@ class wc:
         return 1
 
     def gettaggingmethod(self):
-        return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
-                             [cmd().tagging_method])[0].strip()
+        if isdarcs():
+            return 'explicit'
+        else:
+            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+                                 [cmd().tagging_method])[0].strip()
 
     def gettree(self):
         return util.maketree(self.wcpath,
-                             ignore = [r'(^(\{arch\}$|,,|\.arch-ids$|\+\+)|/\.arch-ids/)'])
+                             ignore = [r'(^(\{arch\}$|,,|_darcs|\.arch-ids$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
         if self.verb:
-            print "Adding tag for %s" % file
+            print "Adding %s" % file
         if (file[-1] == '/') and (not os.path.exists(os.path.join(self.wcpath,
                                                                   file[:-1]))):
             try:
@@ -59,17 +67,17 @@ class wc:
             except:
                 raise
         file = self.slashstrip(file)
-        util.chdircmd(self.wcpath, util.safeexec, "tla",
+        util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                       [cmd().add, file])
 
     def movetag(self, src, dest):
         if self.verb:
-            print "Moving tag for %s to %s" % (src, dest)
-        if src[-1] == '/' and dest[-1] == '/':
+            print "Moving %s to %s" % (src, dest)
+        if src[-1] == '/' and dest[-1] == '/' and (not isdarcs()):
             # Dir to dir -- mv will catch it already.
             return
         src, dest = self.slashstrip(src, dest)
-        util.chdircmd(self.wcpath, util.safeexec, "tla",
+        util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                       [cmd().move, src, dest])
 
     def movefile(self, src, dest):
@@ -80,9 +88,10 @@ class wc:
                                                 os.path.abspath, dest))
         if not os.path.exists(destdir):
             self.makedirs(destdir)
-        
-        util.chdircmd(self.wcpath, os.rename, src, dest)
 
+        if not isdarcs():
+            # darcs moves it itself
+            util.chdircmd(self.wcpath, os.rename, src, dest)
 
     def delfile(self, file):
         if self.verb:
@@ -95,20 +104,41 @@ class wc:
 
     def deltag(self, file):
         if self.verb:
-            print "Deleting tag %s" % file
+            print "Deleting %s" % file
         if os.path.exists(os.path.join(self.wcpath, file)):
-            util.chdircmd(self.wcpath, util.safeexec, "tla",
+            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                           [cmd().delete, file])
 
-    def makelog(self):
-        return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
-                             ['make-log'])[0].strip()
+    def makelog(self, summary, logtext):
+        self.summary = summary
+        self.logtext = logtext
+        if not isdarcs():
+            logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+                                   ['make-log'])[0].strip()
+        else:
+            logfn = ",,darcslog"
+
+        self.logfn = logfn
+        
+        fd = open(logfn, "w")
+        if not isdarcs():
+            fd.write("Summary: %s\n" % summary)
+            fd.write("Keywords: \n\n")
+        fd.write(logtext)
+        print "LOGTEXT", logtext
+        fd.close()
 
 
     def commit(self):
         if self.verb:
             print "Committing changes"
-        util.chdircmd(self.wcpath, util.safeexec, "tla", ['commit'])
+        if isdarcs():
+            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+                          [cmd().commit, "-a", "-m", self.summary,
+                           "--logfile", self.logfn,
+                           "--delete-logfile"])
+        else:
+            util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().commit])
         
     def slashstrip(self, *args):
         retval = []
@@ -143,4 +173,4 @@ class wc:
             print "Created directory", name
         os.mkdir(name, mode)
         self.addtag(name)
-        
+

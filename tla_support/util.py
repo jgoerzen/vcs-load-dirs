@@ -144,13 +144,16 @@ def maketree(path, addpath = None, ignore = [], res = None):
                 retval.append(item)
     return sorttree(retval + others)
 
-def sorttree(srctree):
+def sorttree(srctree, filesfirst = False):
     retval = []
     dirs = [x for x in srctree if x.endswith('/')]
     files = [x for x in srctree if not x.endswith('/')]
     dirs.sort()
     files.sort()
-    return dirs + files
+    if filesfirst:
+        return files + dirs
+    else:
+        return dirs + files
     
         
 def copyfrom(srcdir, destdir):

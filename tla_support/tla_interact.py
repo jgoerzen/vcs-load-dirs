@@ -18,6 +18,7 @@
 
 import sys, os
 import util
+from commandver import isdarcs
 
 class interaction:
     def __init__(self, wcobj, importdir, docommit, log = '', verbose = 0,
@@ -114,8 +115,12 @@ class interaction:
             self.update()
         if self.verb:
             print "Deleting %d files" % len(self.deletedfiles)
-        for file in self.deletedfiles:
-            self.delfile(file)
+        if isdarcs():
+            for file in util.sorttree(self.deletedfiles, filesfirst = True):
+                self.delfile(file)
+        else:
+            for file in self.deletedfiles:
+                self.delfile(file)
 
         if self.verb:
             print "Copying upstream directory to working copy..."
@@ -130,18 +135,16 @@ class interaction:
             self.wcobj.commit()
 
     def writelog(self):
-        logfile = self.wcobj.makelog()
-        fd = open(logfile, "w")
+        logtext = ""
         if self.summary:
-            fd.write("Summary: %s\n" % self.summary)
+            summary = self.summary
         else:
-            fd.write("Summary: Imported %s\n" % os.path.basename(self.importdir))
-        fd.write("Keywords: \n\n")
-        fd.write("Imported %s\ninto %s\n\n" %
-                 (os.path.basename(self.importdir),
-                  self.wcobj.gettreeversion()))
-        fd.write(self.log)
-        fd.close()
+            summary = "Imported %s" % os.path.basename(self.importdir)
+        logtext += "Imported %s\ninto %s\n\n" % \
+                   (os.path.basename(self.importdir),
+                   self.wcobj.gettreeversion())
+        logtext += self.log
+        self.wcobj.makelog(summary, logtext)
         
 
     def addfile(self, file):

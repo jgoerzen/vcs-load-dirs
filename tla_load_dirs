@@ -18,7 +18,7 @@
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from optparse import OptionParser
-from tla_support import tla_wc, tla_interact, util
+from tla_support import util, commandver
 import sys
 
 version = '1.0.10'
@@ -37,6 +37,8 @@ parser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                   default=False, help="Show more status information")
 parser.add_option("-n", "--no-commit", action="store_false", dest="docommit",
                   default=True, help="Do not commit the changes.")
+parser.add_option("-d", "--darcs", action="store_true", dest="darcs",
+                  default=False, help="Use darcs instead of tla")
 
 (options, args) = parser.parse_args()
 util.verbose = options.verbose
@@ -50,11 +52,16 @@ if options.changelog:
 if len(args) != 1:
     parser.error("Failed to specify a path to import.")
 
+commandver.setdarcs(options.darcs)
+
+from tla_support import tla_wc, tla_interact
+
 wc = tla_wc.wc(options.wc, verbose = options.verbose)
 if not wc.gettaggingmethod() in ['explicit', 'tagline']:
     print "Working directory uses unsupported tagging method %s" % \
           wc.gettaggingmethod()
     sys.exit(1)
+
 
 tla_interact.interaction(wc, args[0], options.docommit, log = log,
                          verbose = options.verbose,
