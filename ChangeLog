@@ -2,6 +2,19 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2005-03-01 20:57:36 GMT	John Goerzen <jgoerzen@complete.org>	patch-47
+
+    Summary:
+      Added patch from Alfred M. Szmidt to support symlinks.
+    Revision:
+      tla-load-dirs--head--1.0--patch-47
+
+
+    modified files:
+     ChangeLog debian/changelog tla_support/tla_wc.py
+     tla_support/util.py
+
+
 2004-10-24 22:04:04 GMT	John Goerzen <jgoerzen@complete.org>	patch-46
 
     Summary:

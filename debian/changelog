@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.16) unstable; urgency=low
+
+  * Added patch from Alfred M. Szmidt to support symlinks.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue,  1 Mar 2005 14:57:02 -0600
+
 tla-load-dirs (1.0.15) unstable; urgency=low
 
   * Made load-dirs-common conflict with tla-load-dirs (<< 1.0.14).

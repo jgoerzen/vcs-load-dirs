@@ -127,7 +127,7 @@ def maketree(path, addpath = None, ignore = [], res = None):
         if skip:
             continue
         dirname = os.path.join(path, item)
-        if os.path.isdir(dirname):
+        if os.path.isdir(dirname) and not os.path.islink(dirname):
             if addpath:
                 retval.append(os.path.join(addpath, item) + '/')
             else:

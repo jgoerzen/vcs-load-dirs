@@ -54,7 +54,7 @@ class wc:
 
     def gettree(self):
         return util.maketree(self.wcpath,
-                             ignore = [r'(^(\{arch\}$|,,|_darcs|\.arch-ids$|\+\+)|/\.arch-ids/)'])
+                             ignore = [r'(^(\{arch\}$|,,|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
         if self.verb:
@@ -105,7 +105,7 @@ class wc:
     def deltag(self, file):
         if self.verb:
             print "Deleting %s" % file
-        if os.path.exists(os.path.join(self.wcpath, file)):
+	if os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file)):
             util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                           [cmd().delete, file])
 
