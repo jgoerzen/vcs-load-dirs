@@ -2,6 +2,7 @@ tla-load-dirs (1.0.10) unstable; urgency=low
 
   * Added a manpage and description of the program's operation.
     Closes: #214097.
+  * control s/Build-Depends/Build-Depends-Indep/
 
  -- John Goerzen <jgoerzen@complete.org>  Wed, 22 Oct 2003 16:55:19 -0500
 
