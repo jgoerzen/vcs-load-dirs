@@ -2,6 +2,19 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-02-27 04:00:40 GMT	John Goerzen <jgoerzen@complete.org>	patch-38
+
+    Summary:
+      Now lets the tagging method be tagline
+    Revision:
+      tla-load-dirs--head--1.0--patch-38
+
+
+    modified files:
+     ChangeLog debian/changelog tla_load_dirs
+     tla_support/commandver.py
+
+
 2003-12-16 22:25:26 GMT	John Goerzen <jgoerzen@complete.org>	patch-37
 
     Summary:
