@@ -1,3 +1,11 @@
+tla-load-dirs (1.0.15) unstable; urgency=low
+
+  * Made load-dirs-common conflict with tla-load-dirs (<< 1.0.14).
+    Some files in earlier tla-load-dirs packages are now in
+    load-dirs-common.  Closes: #278102.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun, 24 Oct 2004 17:02:04 -0500
+
 tla-load-dirs (1.0.14) unstable; urgency=low
 
   * Added darcs_load_dirs.

@@ -33,6 +33,7 @@ Description: Import upstream archives into darcs
 Package: load-dirs-common
 Architecture: all
 Depends: ${shlibs:Depends} ${misc:Depends} ${python:Depends}
+Conflicts: tla-load-dirs (<< 1.0.14)
 Description: Common files for tla-load-dirs and darcs-load-dirs
  These two packages share much common code.  This package provides
  that common code so you don't have to install it twice on your system.

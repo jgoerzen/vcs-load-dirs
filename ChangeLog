@@ -2,6 +2,18 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-10-24 22:04:04 GMT	John Goerzen <jgoerzen@complete.org>	patch-46
+
+    Summary:
+      Added conflict to load-dirs-common for earlier versions
+    Revision:
+      tla-load-dirs--head--1.0--patch-46
+
+
+    modified files:
+     ChangeLog debian/changelog debian/control
+
+
 2004-10-14 02:18:09 GMT	John Goerzen <jgoerzen@complete.org>	patch-45
 
     Summary:
