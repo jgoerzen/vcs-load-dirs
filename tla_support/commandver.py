@@ -26,7 +26,9 @@ def gettlasyntax():
     if tlasyn != None:
         return tlasyn
 
-    if util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.0.') != -1:
+    verstring = util.getstdoutsafeexec('tla', ['-V'])[0]
+    if verstring.find('tla-1.0.') != -1 and \
+            verstring.find('+1.1-candidate') == -1:
         tlasyn = '1.0'
         tlaobj = Tla10()
     else:

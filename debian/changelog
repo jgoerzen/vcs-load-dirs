@@ -1,3 +1,12 @@
+tla-load-dirs (1.0.11) unstable; urgency=low
+
+  * Added "upstream" changelog (from tla), note it in debian/rules,
+    and build-dep on a version of debhelper that can support it.
+  * Fixed tla version detection to work with the new "candidate" versions
+    in Debian sid.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 16 Dec 2003 16:16:46 -0600
+
 tla-load-dirs (1.0.10) unstable; urgency=low
 
   * Added a manpage and description of the program's operation.
