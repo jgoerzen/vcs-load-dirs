@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.6) unstable; urgency=low
+
+  * Made the verbose stuff actually do something more verbose.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu,  4 Sep 2003 09:36:06 -0500
+
 tla-load-dirs (1.0.5) unstable; urgency=low
 
   * Slight logic error when adding multiple nested directories.

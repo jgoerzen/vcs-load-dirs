@@ -22,8 +22,9 @@ import os.path
 class wc:
     """Object for a working copy."""
 
-    def __init__(self, wcpath):
+    def __init__(self, wcpath, verbose = 0):
         self.wcpath = os.path.abspath(wcpath)
+        self.verb = verbose
         if not self.wcverify():
             raise Exception, "%s is not a tla working copy" % self.wcpath
 
@@ -47,6 +48,8 @@ class wc:
                              ignore = [r'(^(\{arch\}$|,,|\.arch-ids$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
+        if self.verb:
+            print "Adding tag for %s" % file
         if (file[-1] == '/') and (not os.path.exists(os.path.join(self.wcpath,
                                                                   file[:-1]))):
             try:
@@ -59,6 +62,8 @@ class wc:
                       ['add-tag', file])
 
     def movetag(self, src, dest):
+        if self.verb:
+            print "Moving tag for %s to %s" % (src, dest)
         if src[-1] == '/' and dest[-1] == '/':
             # Dir to dir -- mv will catch it already.
             return
@@ -67,6 +72,8 @@ class wc:
                       ['move-tag', src, dest])
 
     def movefile(self, src, dest):
+        if self.verb:
+            print "Moving file %s to %s" % (src, dest)
         src, dest = self.slashstrip(src, dest)
         destdir = os.path.dirname(util.chdircmd(self.wcpath,
                                                 os.path.abspath, dest))
@@ -77,6 +84,8 @@ class wc:
 
 
     def delfile(self, file):
+        if self.verb:
+            print "Deleting file %s" % file
         fullfile = os.path.join(self.wcpath, file)
         if os.path.isfile(fullfile):
             os.unlink(fullfile)
@@ -84,6 +93,8 @@ class wc:
             util.safeexec("rm", ['-rf', fullfile])
 
     def deltag(self, file):
+        if self.verb:
+            print "Deleting tag %s" % file
         if os.path.exists(os.path.join(self.wcpath, file)):
             util.chdircmd(self.wcpath, util.safeexec, "tla",
                           ['delete-tag', file])
@@ -94,6 +105,8 @@ class wc:
 
 
     def commit(self):
+        if self.verb:
+            print "Committing changes"
         util.chdircmd(self.wcpath, util.safeexec, "tla", ['commit'])
         
     def slashstrip(self, *args):
@@ -125,7 +138,8 @@ class wc:
             head, tail = os.path.split(head)
         if head and tail and not os.path.exists(head):
             self.makedirs(head, mode)
-        print "Created directory", name
+        if self.verb:
+            print "Created directory", name
         os.mkdir(name, mode)
         self.addtag(name)
         

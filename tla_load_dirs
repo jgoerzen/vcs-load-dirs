@@ -48,10 +48,11 @@ if options.changelog:
 if len(args) != 1:
     parser.error("Failed to specify a path to import.")
 
-wc = tla_wc.wc(options.wc)
+wc = tla_wc.wc(options.wc, verbose = options.verbose)
 if not wc.gettaggingmethod() in ['explicit']:
     print "Working directory uses unsupported tagging method %s" % \
           wc.gettaggingmethod()
     sys.exit(1)
 
-tla_interact.interaction(wc, args[0], options.docommit, log = log).main()
+tla_interact.interaction(wc, args[0], options.docommit, log = log,
+                         verbose = options.verbose).main()

@@ -156,8 +156,8 @@ def sorttree(srctree):
 def copyfrom(srcdir, destdir):
     pipes = os.pipe()
     verbargs = []
-    if verbose:
-        verbargs.append('-v')
+    #if verbose:
+    #    verbargs.append('-v')
     readerpid = chdircmd(srcdir, mainexec, "tar", ["-cSpf", "-", "."],
                          child_stdout = pipes[1], wait = 0,
                          closefds = [pipes[0]])

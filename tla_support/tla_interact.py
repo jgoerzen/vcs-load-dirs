@@ -20,16 +20,21 @@ import sys, os
 import util
 
 class interaction:
-    def __init__(self, wcobj, importdir, docommit, log = ''):
+    def __init__(self, wcobj, importdir, docommit, log = '', verbose = 0):
         self.wcobj = wcobj
         self.importdir = os.path.abspath(importdir)
         self.log = log
         self.docommit = docommit
+        self.verb = verbose
 
     def updateimportfiles(self):
+        if self.verb:
+            print "Scanning upstream tree..."
         self.importfiles = util.maketree(self.importdir)
 
     def updatewcfiles(self):
+        if self.verb:
+            print "Scanning working copy tree..."
         self.wcfiles = self.wcobj.gettree()
 
     def update(self):
@@ -37,6 +42,8 @@ class interaction:
         self.updatechangedfiles()
 
     def updatechangedfiles(self):
+        if self.verb:
+            print "Calculating changes..."
         self.addedfiles = [x for x in self.importfiles if not x in self.wcfiles]
         self.deletedfiles = [x for x in self.wcfiles if not x in self.importfiles]
         
@@ -56,10 +63,13 @@ class interaction:
             return 1
 
         self.updateimportfiles()
+        needsupdate = 1
         
         while 1:
             self.update()
             if not (len(self.addedfiles) and len(self.deletedfiles)):
+                # Just ran update; don't do it again.
+                needsupdate = 0
                 break
 
             counter = 0
@@ -84,14 +94,24 @@ class interaction:
             except ValueError:
                 print "Error handling input; please try again."
 
-        self.catchup()
+        self.catchup(needsupdate)
         
-    def catchup(self):
-        self.update()
+    def catchup(self, needsupdate = 1):
+        if self.verb:
+            print " *** Processing changes."
+        if needsupdate:
+            self.update()
+        if self.verb:
+            print "Deleting %d files" % len(self.deletedfiles)
         for file in self.deletedfiles:
             self.delfile(file)
 
+        if self.verb:
+            print "Copying upstream directory to working copy..."
         util.copyfrom(self.importdir, self.wcobj.wcpath)
+
+        if self.verb:
+            print "Adding %d files" % len(self.addedfiles)
         for file in self.addedfiles:
             self.addfile(file)
         self.writelog()
