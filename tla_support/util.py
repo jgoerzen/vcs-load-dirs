@@ -112,11 +112,12 @@ def chdircmd(newdir, func, *args, **kwargs):
     finally:
         os.chdir(cwd)
 
-def maketree(path, addpath = None, ignore = []):
+def maketree(path, addpath = None, ignore = [], res = None):
     thisdir = os.listdir(path)
     retval = []
     others = []
-    res = [re.compile(x) for x in ignore]
+    if res == None:
+        res = [re.compile(x) for x in ignore]
     for item in thisdir:
         skip = 0
         for retest in res:
@@ -135,7 +136,7 @@ def maketree(path, addpath = None, ignore = []):
                 newaddpath = os.path.join(addpath, item)
             else:
                 newaddpath = item
-            others.extend(maketree(dirname, newaddpath, ignore))
+            others.extend(maketree(dirname, newaddpath, res = res))
         else:
             if addpath:
                 retval.append(os.path.join(addpath, item))

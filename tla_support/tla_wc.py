@@ -44,11 +44,7 @@ class wc:
 
     def gettree(self):
         return util.maketree(self.wcpath,
-                             ignore = [r'^\{arch\}$',
-                                       r'^,,',
-                                       r'/\.arch-ids/',
-                                       r'^\.arch-ids$',
-                                       r'^\+\+'])
+                             ignore = [r'(^(\{arch\}$|,,|\.arch-ids$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
         if (file[-1] == '/') and (not os.path.exists(file[:-1])):

@@ -74,7 +74,7 @@ class interaction:
                     delfile = self.deletedfiles[counter]
                 print "%3x %-35s %3x %-35s" % (counter, delfile, counter, addfile)
                 counter += 1
-            print "Syntax: (src dest [,src dest [,...]] to move, q to accept, r to redraw:"
+            print "Syntax: src dest [,src dest [,...]] to move, q to accept, r to redraw:"
             sys.stdout.write("Command: ")
             sys.stdout.flush()
             try:
