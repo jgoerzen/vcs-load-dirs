@@ -18,7 +18,7 @@
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 from optparse import OptionParser
-from tla_support import tla_wc
+from tla_support import tla_wc, tla_interact
 import sys
 
 version = '0.0.1'
@@ -40,3 +40,4 @@ if not wc.gettaggingmethod() in ['explicit']:
           wc.gettaggingmethod()
     sys.exit(1)
 
+tla_interact.main(wc, args[0])

@@ -137,5 +137,14 @@ def maketree(path, addpath = None, ignore = []):
                 retval.append(os.path.join(addpath, item))
             else:
                 retval.append(item)
-    return retval + others
+    return sorttree(retval + others)
+
+def sorttree(srctree):
+    retval = []
+    dirs = [x for x in srctree if x.endswith('/')]
+    files = [x for x in srctree if not x.endswith('/')]
+    dirs.sort()
+    files.sort()
+    return dirs + files
+    
         
