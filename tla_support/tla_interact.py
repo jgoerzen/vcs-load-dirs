@@ -33,7 +33,6 @@ class interaction:
         self.wcfiles = self.wcobj.gettree()
 
     def update(self):
-        self.updateimportfiles()
         self.updatewcfiles()
         self.updatechangedfiles()
 
@@ -55,6 +54,8 @@ class interaction:
                 dest = int(dest, 16)
                 self.mv(self.deletedfiles[src], self.addedfiles[dest])
             return 1
+
+        self.updateimportfiles()
         
         while 1:
             self.update()
