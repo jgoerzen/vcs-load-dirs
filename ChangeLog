@@ -2,6 +2,18 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-07-13 15:18:46 GMT	John Goerzen <jgoerzen@complete.org>	patch-39
+
+    Summary:
+      Added python to build-deps
+    Revision:
+      tla-load-dirs--head--1.0--patch-39
+
+
+    modified files:
+     ChangeLog debian/changelog debian/control
+
+
 2004-02-27 04:00:40 GMT	John Goerzen <jgoerzen@complete.org>	patch-38
 
     Summary:

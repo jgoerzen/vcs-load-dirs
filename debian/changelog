@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.13) unstable; urgency=low
+
+  * Added python to build-deps.  Closes: #259136.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 13 Jul 2004 10:17:04 -0500
+
 tla-load-dirs (1.0.12) unstable; urgency=low
 
   * Experimental: Let the tagging method be tagline.

@@ -2,7 +2,7 @@ Source: tla-load-dirs
 Section: devel
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends-Indep: debhelper (>= 4.1.81), python2.3-dev, gtk-doc-tools, sgml2x, docbook-utils, jade
+Build-Depends-Indep: debhelper (>= 4.1.81), python2.3-dev, gtk-doc-tools, sgml2x, docbook-utils, jade, python (>= 2.3), python-dev
 Standards-Version: 3.5.8
 
 Package: tla-load-dirs
