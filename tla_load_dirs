@@ -16,3 +16,18 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+from optparse import OptionParser
+version = '0.0.1'
+
+parser = OptionParser(usage="usage: %prog [options] newpath",
+                      version="%prog 1.0")
+parser.add_option("-w", "--wc", dest="wc", default=".",
+                  help="Set working copy to WC (defaults to current directory)", metavar="WC")
+parser.add_option("-c", "--changelog", dest="changelog", metavar="CHANGELOG",
+                  help="Get changelog text from file CHANGELOG")
+(options, args) = parser.parse_args()
+
+if len(args) != 1:
+    parser.error("Failed to specify a path to import.")
+
