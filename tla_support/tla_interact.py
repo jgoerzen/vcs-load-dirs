@@ -44,8 +44,15 @@ class interaction:
     def updatechangedfiles(self):
         if self.verb:
             print "Calculating changes..."
-        self.addedfiles = [x for x in self.importfiles if not x in self.wcfiles]
-        self.deletedfiles = [x for x in self.wcfiles if not x in self.importfiles]
+        wcfilehash = {}
+        for x in self.wcfiles:
+            wcfilehash[x] = 1
+        importfilehash = {}
+        for x in self.importfiles:
+            importfilehash[x] = 1
+        
+        self.addedfiles = [x for x in self.importfiles if not wcfilehash.has_key(x)]
+        self.deletedfiles = [x for x in self.wcfiles if not importfilehash.has_key(x)]
         
 
     def main(self):
