@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.7) unstable; urgency=low
+
+  * Various bugfixes.
+  * Added -s option to set the summary line.
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri,  5 Sep 2003 09:43:03 -0500
+
 tla-load-dirs (1.0.6) unstable; urgency=low
 
   * Made the verbose stuff actually do something more verbose.

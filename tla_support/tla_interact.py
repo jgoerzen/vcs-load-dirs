@@ -20,12 +20,14 @@ import sys, os
 import util
 
 class interaction:
-    def __init__(self, wcobj, importdir, docommit, log = '', verbose = 0):
+    def __init__(self, wcobj, importdir, docommit, log = '', verbose = 0,
+                 summary = None):
         self.wcobj = wcobj
         self.importdir = os.path.abspath(importdir)
         self.log = log
         self.docommit = docommit
         self.verb = verbose
+        self.summary = summary
 
     def updateimportfiles(self):
         if self.verb:
@@ -128,7 +130,10 @@ class interaction:
     def writelog(self):
         logfile = self.wcobj.makelog()
         fd = open(logfile, "w")
-        fd.write("Summary: Imported %s\n" % os.path.basename(self.importdir))
+        if self.summary:
+            fd.write("Summary: %s\n" % self.summary)
+        else:
+            fd.write("Summary: Imported %s\n" % os.path.basename(self.importdir))
         fd.write("Keywords: \n\n")
         fd.write("Imported %s\ninto %s\n\n" %
                  (os.path.basename(self.importdir),

@@ -31,6 +31,8 @@ parser.add_option("-l", "--log", dest="changelog", metavar="FILE", default=None,
                   help="Get changelog text from FILE")
 parser.add_option("-L", "--log-message", dest="logtext", metavar="TEXT",
                   default='', help="Log with TEXT")
+parser.add_option("-s", "--summary", dest="summary", metavar="MSG",
+                  default=None, help="Set log summary message to MSG, overriding the default")
 parser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                   default=False, help="Show more status information")
 parser.add_option("-n", "--no-commit", action="store_false", dest="docommit",
@@ -55,4 +57,5 @@ if not wc.gettaggingmethod() in ['explicit']:
     sys.exit(1)
 
 tla_interact.interaction(wc, args[0], options.docommit, log = log,
-                         verbose = options.verbose).main()
+                         verbose = options.verbose,
+                         summary = options.summary).main()
