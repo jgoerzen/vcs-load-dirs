@@ -18,6 +18,7 @@
 
 import util
 import os.path
+from cmdver import cmd
 
 class wc:
     """Object for a working copy."""
@@ -41,7 +42,7 @@ class wc:
 
     def gettaggingmethod(self):
         return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
-                             ['tagging-method'])[0].strip()
+                             [cmd().tagging_method])[0].strip()
 
     def gettree(self):
         return util.maketree(self.wcpath,
@@ -59,7 +60,7 @@ class wc:
                 raise
         file = self.slashstrip(file)
         util.chdircmd(self.wcpath, util.safeexec, "tla",
-                      ['add-tag', file])
+                      [cmd().add, file])
 
     def movetag(self, src, dest):
         if self.verb:
@@ -69,7 +70,7 @@ class wc:
             return
         src, dest = self.slashstrip(src, dest)
         util.chdircmd(self.wcpath, util.safeexec, "tla",
-                      ['move-tag', src, dest])
+                      [cmd().move, src, dest])
 
     def movefile(self, src, dest):
         if self.verb:
@@ -97,7 +98,7 @@ class wc:
             print "Deleting tag %s" % file
         if os.path.exists(os.path.join(self.wcpath, file)):
             util.chdircmd(self.wcpath, util.safeexec, "tla",
-                          ['delete-tag', file])
+                          [cmd().delete, file])
 
     def makelog(self):
         return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",

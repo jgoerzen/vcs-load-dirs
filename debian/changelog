@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.8) unstable; urgency=low
+
+  * Now compatible with both 1.0 and the latest 1.1 snapshot.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 22 Oct 2003 13:27:54 -0500
+
 tla-load-dirs (1.0.7) unstable; urgency=low
 
   * Various bugfixes.

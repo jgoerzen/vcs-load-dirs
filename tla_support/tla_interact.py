@@ -102,6 +102,8 @@ class interaction:
                     break
             except ValueError:
                 print "Error handling input; please try again."
+            except IndexError:
+                print "Error handling input; please try again."
 
         self.catchup(needsupdate)
         
