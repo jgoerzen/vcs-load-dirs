@@ -33,6 +33,8 @@ parser.add_option("-L", "--log-message", dest="logtext", metavar="TEXT",
                   default='', help="Log with TEXT")
 parser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                   default=False, help="Show more status information")
+parser.add_option("-n", "--no-commit", action="store_false", dest="docommit",
+                  default=True, help="Do not commit the changes.")
 
 (options, args) = parser.parse_args()
 util.verbose = options.verbose
@@ -52,4 +54,4 @@ if not wc.gettaggingmethod() in ['explicit']:
           wc.gettaggingmethod()
     sys.exit(1)
 
-tla_interact.interaction(wc, args[0], log = log).main()
+tla_interact.interaction(wc, args[0], options.docommit, log = log).main()

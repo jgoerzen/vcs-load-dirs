@@ -20,10 +20,11 @@ import sys, os
 import util
 
 class interaction:
-    def __init__(self, wcobj, importdir, log = ''):
+    def __init__(self, wcobj, importdir, docommit, log = ''):
         self.wcobj = wcobj
         self.importdir = os.path.abspath(importdir)
         self.log = log
+        self.docommit = docommit
 
     def updateimportfiles(self):
         self.importfiles = util.maketree(self.importdir)
@@ -83,7 +84,8 @@ class interaction:
 
         util.copyfrom(self.importdir, self.wcobj.wcpath)
         self.writelog()
-        self.wcobj.commit()
+        if self.docommit:
+            self.wcobj.commit()
 
     def writelog(self):
         logfile = self.wcobj.makelog()
