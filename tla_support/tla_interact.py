@@ -88,12 +88,12 @@ class interaction:
         
     def catchup(self):
         self.update()
-        for file in self.addedfiles:
-            self.addfile(file)
         for file in self.deletedfiles:
             self.delfile(file)
 
         util.copyfrom(self.importdir, self.wcobj.wcpath)
+        for file in self.addedfiles:
+            self.addfile(file)
         self.writelog()
         if self.docommit:
             self.wcobj.commit()

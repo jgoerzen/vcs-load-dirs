@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.5) unstable; urgency=low
+
+  * Slight logic error when adding multiple nested directories.
+    Now do the adds after the copyfrom().
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed,  3 Sep 2003 22:04:25 -0500
+
 tla-load-dirs (1.0.4) unstable; urgency=low
 
   * Added better error checking of input.
