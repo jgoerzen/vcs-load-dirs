@@ -46,7 +46,7 @@ clean:
 	# Add here commands to clean up after the build process.
 	#-$(MAKE) clean
 	-$(PYTHON) setup.py clean
-	-rm ./++* ./,,*
+	-rm -rf ./++* ./,,*
 	-rm -rf build
 	dh_clean
 

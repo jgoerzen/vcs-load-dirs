@@ -93,7 +93,8 @@ class interaction:
         fd.write("Summary: Imported %s\n" % self.importdir)
         fd.write("Keywords: \n\n")
         fd.write("Imported %s\ninto %s\n\n" %
-                 (self.importdir, self.wcobj.gettreeversion()))
+                 (os.path.basename(self.importdir),
+                  self.wcobj.gettreeversion()))
         fd.write(self.log)
         fd.close()
         
