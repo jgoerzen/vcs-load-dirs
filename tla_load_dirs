@@ -19,6 +19,7 @@
 
 from optparse import OptionParser
 from tla_support import tla_wc
+import sys
 
 version = '0.0.1'
 
@@ -38,3 +39,4 @@ if not wc.gettaggingmethod() in ['explicit']:
     print "Working directory uses unsupported tagging method %s" % \
           wc.gettaggingmethod()
     sys.exit(1)
+

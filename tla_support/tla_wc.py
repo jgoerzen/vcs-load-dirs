@@ -27,9 +27,13 @@ class wc:
         if not self.wcverify():
             raise Exception, "%s is not a tla working copy" % self.wcpath
 
+    def gettreeversion(self):
+        return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+                             ['tree-version'])[0].strip() 
+
     def wcverify(self):
         try:
-            util.chdircmd(self.wcpath, util.silentsafeexec, "tla", ['tree-version'], expected = 0)
+            self.gettreeversion()
         except util.ExecProblem:
             return 0
         return 1
@@ -37,3 +41,11 @@ class wc:
     def gettaggingmethod(self):
         return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
                              ['tagging-method'])[0].strip()
+
+    def gettree(self):
+        return util.maketree(self.wcpath,
+                             ignore = [r'^\{arch\}$',
+                                       r'^,,',
+                                       r'^\.arch-ids$',
+                                       r'^\+\+'])
+    

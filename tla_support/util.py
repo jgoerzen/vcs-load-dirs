@@ -16,7 +16,7 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import os, sys
+import os, sys, re
 
 nulldev = None
 
@@ -107,3 +107,35 @@ def chdircmd(newdir, func, *args, **kwargs):
         return apply(func, args, kwargs)
     finally:
         os.chdir(cwd)
+
+def maketree(path, addpath = None, ignore = []):
+    thisdir = os.listdir(path)
+    retval = []
+    others = []
+    res = [re.compile(x) for x in ignore]
+    for item in thisdir:
+        skip = 0
+        for retest in res:
+            if retest.search(item):
+                skip = 1
+                break
+        if skip:
+            continue
+        dirname = os.path.join(path, item)
+        if os.path.isdir(dirname):
+            if addpath:
+                retval.append(os.path.join(addpath, item) + '/')
+            else:
+                retval.append(item + '/')
+            if addpath:
+                newaddpath = os.path.join(addpath, item)
+            else:
+                newaddpath = item
+            others.extend(maketree(dirname, newaddpath))
+        else:
+            if addpath:
+                retval.append(os.path.join(addpath, item))
+            else:
+                retval.append(item)
+    return retval + others
+        
