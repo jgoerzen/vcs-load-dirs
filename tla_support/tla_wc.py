@@ -87,8 +87,9 @@ class wc:
             util.safeexec("rm", ['-rf', fullfile])
 
     def deltag(self, file):
-        util.chdircmd(self.wcpath, util.safeexec, "tla",
-                      ['delete-tag', file])
+        if os.path.exists(os.path.join(self.wcpath, file)):
+            util.chdircmd(self.wcpath, util.safeexec, "tla",
+                          ['delete-tag', file])
 
     def makelog(self):
         return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",

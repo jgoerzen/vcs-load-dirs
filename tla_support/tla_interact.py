@@ -48,6 +48,8 @@ class interaction:
                 command = command.strip()
                 if command == 'q':
                     return 0
+                if command == 'r':
+                    return 1
                 src, dest = command.split(' ')
                 src = int(src, 16)
                 dest = int(dest, 16)
@@ -72,15 +74,14 @@ class interaction:
                     delfile = self.deletedfiles[counter]
                 print "%3x %-35s %3x %-35s" % (counter, delfile, counter, addfile)
                 counter += 1
-            print "Syntax: (src dest [,src dest [,...]] to move, q to accept:"
+            print "Syntax: (src dest [,src dest [,...]] to move, q to accept, r to redraw:"
             sys.stdout.write("Command: ")
             sys.stdout.flush()
             try:
                 if not readloop():
                     break
-            except:
-                raise
-                print "Error."
+            except ValueError:
+                print "Error handling input; please try again."
 
         self.catchup()
         
@@ -99,7 +100,7 @@ class interaction:
     def writelog(self):
         logfile = self.wcobj.makelog()
         fd = open(logfile, "w")
-        fd.write("Summary: Imported %s\n" % self.importdir)
+        fd.write("Summary: Imported %s\n" % os.path.basename(self.importdir))
         fd.write("Keywords: \n\n")
         fd.write("Imported %s\ninto %s\n\n" %
                  (os.path.basename(self.importdir),

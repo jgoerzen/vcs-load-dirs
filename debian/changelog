@@ -1,8 +1,16 @@
+tla-load-dirs (1.0.4) unstable; urgency=low
+
+  * Added better error checking of input.
+  * Added command to redraw screen.
+  * Many bugfixes.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed,  3 Sep 2003 15:09:18 -0500
+
 tla-load-dirs (1.0.3) unstable; urgency=low
 
   * Now properly rm -rf's a directory that is removed.
 
- -- John Goerzen <jgoerzen@wile.excelhustler.com>  Wed,  3 Sep 2003 14:32:39 -0500
+ -- John Goerzen <jgoerzen@complete.org>  Wed,  3 Sep 2003 14:32:39 -0500
 
 tla-load-dirs (1.0.2) unstable; urgency=low
 
