@@ -33,3 +33,7 @@ class wc:
         except util.ExecProblem:
             return 0
         return 1
+
+    def gettaggingmethod(self):
+        return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+                             ['tagging-method'])[0].strip()

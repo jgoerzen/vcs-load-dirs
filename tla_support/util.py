@@ -62,6 +62,16 @@ def safeexec(program, args = [], child_stdout = None,
     result = mainexec(program, args, child_stdout, child_stdin, child_stderr)
     return checkresult(result, expected)
 
+def getstdoutsafeexec(program, args, expected = 0):
+    pipes = os.pipe()
+    pid = mainexec(program, args, child_stdout = pipes[1], wait  = 0)
+    os.close(pipes[1])
+    fd = os.fdopen(pipes[0], 'r')
+    retval = fd.readlines()
+    checkpid(pid, expected)
+    os.close(pipes[0])
+    return retval
+
 def silentsafeexec(program, args, expected = 0):
     """Silently runs the specified program."""
     null = getnull()
@@ -81,8 +91,8 @@ def checkresult(result, expected):
         raise ExecProblem, info + " (expected exit code %d)" % expected
     return result
 
-def checkpid(pid):
-    checkresult(os.waitpid(pid, 0)[1])
+def checkpid(pid, expected):
+    return checkresult(os.waitpid(pid, 0)[1], expected)
 
 def getnull():
     global nulldev

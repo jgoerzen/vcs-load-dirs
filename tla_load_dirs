@@ -32,4 +32,9 @@ parser.add_option("-c", "--changelog", dest="changelog", metavar="CHANGELOG",
 
 if len(args) != 1:
     parser.error("Failed to specify a path to import.")
+
 wc = tla_wc.wc(options.wc)
+if not wc.gettaggingmethod() in ['tagline', 'explicit']:
+    print "Working directory uses unsupported tagging method %s" % \
+          wc.gettaggingmethod()
+    sys.exit(1)
