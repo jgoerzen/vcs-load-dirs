@@ -47,7 +47,8 @@ class wc:
                              ignore = [r'(^(\{arch\}$|,,|\.arch-ids$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
-        if (file[-1] == '/') and (not os.path.exists(file[:-1])):
+        if (file[-1] == '/') and (not os.path.exists(os.path.join(self.wcpath,
+                                                                  file[:-1]))):
             try:
                 print "addtag: making dir %s" % file[:-1]
                 os.makedirs(os.path.join(self.wcpath, file[:-1]))
