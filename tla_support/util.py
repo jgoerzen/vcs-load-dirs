@@ -1,0 +1,99 @@
+# arch-tag: tla support utilities 1062530003
+# Copyright (C) 2003 John Goerzen
+# <jgoerzen@complete.org>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+import os, sys
+
+nulldev = None
+
+class ExecProblem(Exception):
+    pass
+
+def mainexec(program, args = [], child_stdout = None,
+             child_stdin = None, child_stderr = None, wait = 1):
+    """Runs the program as a sub-process, passing to it args if specified.
+    The sub-process has its file descriptors adjusted as per the arguments.
+
+    If wait is 1, wait until the child exits, then return the result code from
+    os.waitpid().
+
+    If wait is 0, return the PID immediately."""
+
+    def setfds(source, dest):
+        if source != None:
+            if hasattr(source, 'fileno'):
+                source = source.fileno()
+            os.dup2(source, dest)
+            
+    
+    pid = os.fork()
+    if not pid:
+        setfds(child_stdin, 0)
+        setfds(child_stdout, 1)
+        setfds(child_stderr, 2)
+        os.execvp(program, (program,) + tuple(args))
+        sys.exit(255)
+    else:
+        if wait:
+            return os.waitpid(pid, 0)[1]
+        else:
+            return pid
+
+def safeexec(program, args = [], child_stdout = None,
+             child_stdin = None, child_stderr = None,
+             expected = 0):
+    """Calls mainexec() with the appropriate arguments, and raises
+    an exception if the program died with a signal or returned an
+    error code other than expected.  This function will always wait."""
+    result = mainexec(program, args, child_stdout, child_stdin, child_stderr)
+    return checkresult(result, expected)
+
+def silentsafeexec(program, args, expected = 0):
+    """Silently runs the specified program."""
+    null = getnull()
+    result = mainexec(program, args, null, null, null)
+    return checkresult(result, expected)
+
+def checkresult(result, expected):
+    info = []
+    if os.WIFSIGNALED(result):
+        info.append("got signal %d" % os.WTERMSIG(result))
+    if os.WIFEXITED(result):
+        info.append("exited with code %d" % os.WEXITSTATUS(result))
+    info = ",".join(info)
+    if not os.WIFEXITED(result):
+        raise ExecProblem, info
+    if os.WEXITSTATUS(result) != expected:
+        raise ExecProblem, info + " (expected exit code %d)" % expected
+    return result
+
+def checkpid(pid):
+    checkresult(os.waitpid(pid, 0)[1])
+
+def getnull():
+    global nulldev
+    if not nulldev:
+        nulldev = open("/dev/null", "w+")
+    return nulldev
+
+def chdircmd(newdir, func, *args, **kwargs):
+    cwd = os.getcwd()
+    os.chdir(newdir)
+    try:
+        return apply(func, args, kwargs)
+    finally:
+        os.chdir(cwd)

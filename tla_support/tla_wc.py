@@ -1,5 +1,4 @@
-#!/usr/bin/python2.3
-# arch-tag: tla load dirs primary executable
+# arch-tag: tla working copy support 1062530429
 # Copyright (C) 2003 John Goerzen
 # <jgoerzen@complete.org>
 #
@@ -17,19 +16,20 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-from optparse import OptionParser
-from tla_support import tla_wc
+import util
+import os.path
 
-version = '0.0.1'
+class wc:
+    """Object for a working copy."""
 
-parser = OptionParser(usage="usage: %prog [options] newpath",
-                      version="%prog 1.0")
-parser.add_option("-w", "--wc", dest="wc", default=".",
-                  help="Set working copy to WC (defaults to current directory)", metavar="WC")
-parser.add_option("-c", "--changelog", dest="changelog", metavar="CHANGELOG",
-                  help="Get changelog text from file CHANGELOG")
-(options, args) = parser.parse_args()
+    def __init__(self, wcpath):
+        self.wcpath = os.path.abspath(wcpath)
+        if not self.wcverify():
+            raise Exception, "%s is not a tla working copy" % self.wcpath
 
-if len(args) != 1:
-    parser.error("Failed to specify a path to import.")
-wc = tla_wc.wc(options.wc)
+    def wcverify(self):
+        try:
+            util.chdircmd(self.wcpath, util.silentsafeexec, "tla", ['tree-version'], expected = 0)
+        except util.ExecProblem:
+            return 0
+        return 1
