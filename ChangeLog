@@ -2,6 +2,24 @@
 # arch-tag: automatic-ChangeLog--jgoerzen@complete.org--projects/tla-load-dirs--head--1.0
 #
 
+2004-10-14 02:01:35 GMT	John Goerzen <jgoerzen@complete.org>	patch-44
+
+    Summary:
+      Breaking up the .deb
+    Revision:
+      tla-load-dirs--head--1.0--patch-44
+
+
+    new files:
+     debian/.arch-ids/darcs-load-dirs.install.id
+     debian/.arch-ids/load-dirs-common.install.id
+     debian/darcs-load-dirs.install debian/load-dirs-common.install
+
+    modified files:
+     ChangeLog debian/changelog debian/control debian/dirs
+     debian/rules setup.py tla_support/init.py
+
+
 2004-10-14 01:51:52 GMT	John Goerzen <jgoerzen@complete.org>	patch-43
 
     Summary:
