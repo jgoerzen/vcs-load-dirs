@@ -20,10 +20,10 @@ import sys, os
 import util
 
 class interaction:
-    def __init__(self, wcobj, importdir):
+    def __init__(self, wcobj, importdir, log = ''):
         self.wcobj = wcobj
         self.importdir = os.path.abspath(importdir)
-        self.actions = {'added': [], 'deleted': [], 'moved': []}
+        self.log = log
 
     def updateimportfiles(self):
         self.importfiles = util.maketree(self.importdir)
@@ -92,33 +92,21 @@ class interaction:
         fd.write("Keywords: \n\n")
         fd.write("Imported %s\ninto %s\n\n" %
                  (self.importdir, self.wcobj.gettreeversion()))
-        for action in self.actions:
-            if len(self.actions[action]):
-                fd.write("To manage the import, the following files were %s:\n" \
-                      % action)
-                for item in self.actions[action]:
-                    if len(item) == 2:
-                        fd.write("%s -> %s\n" % (item[0], item[1]))
-                    else:
-                        fd.write(item[0] + "\n")
-                fd.write("\n")
+        fd.write(self.log)
         fd.close()
         
 
     def addfile(self, file):
         self.wcobj.addtag(file)
-        self.actions['added'].append((file,))
 
     def delfile(self, file):
         self.wcobj.deltag(file)
         self.wcobj.delfile(file)
-        self.actions['deleted'].append((file,))
     
         
     def mv(self, src, dest):
         print "%s -> %s" % (src, dest)
         self.wcobj.movefile(src, dest)
         self.wcobj.movetag(src, dest)
-        self.actions['moved'].append((src, dest))
 
         
