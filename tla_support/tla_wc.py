@@ -18,7 +18,7 @@
 
 import util
 import os.path
-from cmdver import cmd
+from commandver import cmd
 
 class wc:
     """Object for a working copy."""
