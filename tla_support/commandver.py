@@ -22,7 +22,7 @@ tlaobj = None
 
 
 def gettlasyntax():
-    global tlasyn
+    global tlasyn, tlaobj
     if tlasyn != None:
         return tlasyn
 
@@ -51,5 +51,6 @@ class Tla11:
     replay = 'replay'
 
 def cmd():
+    global tlaobj
     gettlasyntax()
-    return tlaobj()
+    return tlaobj
