@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.10) unstable; urgency=low
+
+  * Added a manpage and description of the program's operation.
+    Closes: #214097.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 22 Oct 2003 16:55:19 -0500
+
 tla-load-dirs (1.0.9) unstable; urgency=low
 
   * Fixed a typo in tla_wc.

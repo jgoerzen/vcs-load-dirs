@@ -35,6 +35,7 @@ build-stamp: configure-stamp
 
 	# Add here commands to compile the package.
 	#/usr/bin/docbook-to-man debian/tla-load-dirs.sgml > tla-load-dirs.1
+	cd docs && make manpages
 	$(PYTHON) setup.py build
 	touch build-stamp
 
@@ -48,6 +49,7 @@ clean:
 	-$(PYTHON) setup.py clean
 	-rm -rf ./++* ./,,*
 	-rm -rf build
+	-cd docs; make realclean
 	dh_clean
 
 install: build
