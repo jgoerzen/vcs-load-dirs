@@ -3,6 +3,8 @@ tla-load-dirs (1.0.1) unstable; urgency=low
   * New arg: --no-commit.
   * Now strips off the path from the logged import directory.
   * More aggressive clean target.
+  * Creates any directories necessary to move files into.
+  * Cleaned up output.
 
  -- John Goerzen <jgoerzen@complete.org>  Wed,  3 Sep 2003 11:43:12 -0500
 

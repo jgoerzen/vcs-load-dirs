@@ -43,12 +43,26 @@ class interaction:
         
 
     def main(self):
+        def readloop():
+            for command in sys.stdin.readline().strip().split(','):
+                command = command.strip()
+                if command == 'q':
+                    return 0
+                src, dest = command.split(' ')
+                src = int(src, 16)
+                dest = int(dest, 16)
+                self.mv(self.deletedfiles[src], self.addedfiles[dest])
+            return 1
+        
         while 1:
             self.update()
             if not (len(self.addedfiles) and len(self.deletedfiles)):
                 break
 
             counter = 0
+            print "%3s %-35s %3s %-35s" % ('Num', 'Source Files', 'Num',
+                                             'Destination Files',)
+            print "%s %s %s %s" % ("-" * 3, "-" * 35, "-" * 3, "-" * 35)
             while counter < max(len(self.addedfiles), len(self.deletedfiles)):
                 addfile = ''
                 delfile = ''
@@ -56,19 +70,14 @@ class interaction:
                     addfile = self.addedfiles[counter]
                 if counter < len(self.deletedfiles):
                     delfile = self.deletedfiles[counter]
-                print "%-3x %-35s %-35s" % (counter, delfile, addfile)
+                print "%3x %-35s %3x %-35s" % (counter, delfile, counter, addfile)
                 counter += 1
             print "Syntax: (src dest [,src dest [,...]] to move, q to accept:"
-            print "Command: ",
+            sys.stdout.write("Command: ")
+            sys.stdout.flush()
             try:
-                for command in sys.stdin.readline().strip().split(','):
-                    command = command.strip()
-                    if command == 'q':
-                        break
-                    src, dest = command.split(' ')
-                    src = int(src, 16)
-                    dest = int(dest, 16)
-                    self.mv(self.deletedfiles[src], self.addedfiles[dest])
+                if not readloop():
+                    break
             except:
                 raise
                 print "Error."
@@ -112,4 +121,3 @@ class interaction:
         self.wcobj.movefile(src, dest)
         self.wcobj.movetag(src, dest)
 
-        

@@ -51,7 +51,7 @@ class wc:
                                        r'^\+\+'])
     
     def addtag(self, file):
-        if file[-1] == '/':
+        if (file[-1] == '/') and (not os.path.exists(file[:-1])):
             try:
                 print "addtag: making dir %s" % file[:-1]
                 os.makedirs(os.path.join(self.wcpath, file[:-1]))
@@ -71,6 +71,11 @@ class wc:
 
     def movefile(self, src, dest):
         src, dest = self.slashstrip(src, dest)
+        destdir = os.path.dirname(util.chdircmd(self.wcpath,
+                                                os.path.abspath, dest))
+        if not os.path.exists(destdir):
+            self.makedirs(destdir)
+        
         util.chdircmd(self.wcpath, os.rename, src, dest)
 
 
@@ -100,3 +105,25 @@ class wc:
         if len(args) == 1:
             return retval[0]
         return retval
+
+
+    def makedirs(self, name, mode=0777):
+        """makedirs(path [, mode=0777])
+
+        Super-mkdir; create a leaf directory and all intermediate ones.
+        Works like mkdir, except that any intermediate path segment (not
+        just the rightmost) will be created if it does not exist.  This is
+        recursive.
+
+        (Modified from Python source)
+
+        """
+        head, tail = os.path.split(name)
+        if not tail:
+            head, tail = os.path.split(head)
+        if head and tail and not os.path.exists(head):
+            self.makedirs(head, mode)
+        print "Created directory", %s
+        os.mkdir(name, mode)
+        self.addtag(name)
+        
