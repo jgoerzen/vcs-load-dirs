@@ -103,11 +103,11 @@ class wc:
             util.safeexec("rm", ['-rf', fullfile])
 
     def deltag(self, file):
-        if self.verb:
-            print "Deleting %s" % file
-	if ((not isdarcs()) and
-            os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file))):
-            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+        if not isdarcs():
+            if self.verb:
+                print "Deleting %s" % file
+            if os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file)):
+                util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                           [cmd().delete, file])
 
     def makelog(self, summary, logtext):
