@@ -73,7 +73,7 @@ class Darcs:
     tagging_method = None
     add = 'add'
     move = 'mv'
-    delete = 'remove'
+    delete = None
     update = 'pull'
     replay = 'pull'
     commit = 'record'
