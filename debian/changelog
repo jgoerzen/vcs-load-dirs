@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.18) unstable; urgency=low
+
+  * Fixed typos in control.  Closes: #300420.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 19 Apr 2005 23:56:29 -0500
+
 tla-load-dirs (1.0.17) unstable; urgency=low
 
   * [darcs] No longer attempt to darcs remove files; darcs will detect

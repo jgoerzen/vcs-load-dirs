@@ -10,7 +10,7 @@ Architecture: all
 Depends: load-dirs-common, tla, ${shlibs:Depends} ${misc:Depends} ${python:Depends}
 Description: Import upstream archives into tla/arch
  Tom Lord's arch/tla system is capable of importing upstream directories
- into a tla archive for some archives,  For situations where the upstream
+ into a tla archive for some archives.  For situations where the upstream
  renames or moves files and directories on a regular basis, version
  information can be lost.
  .
@@ -22,9 +22,9 @@ Package: darcs-load-dirs
 Architecture: all
 Depends: load-dirs-common, darcs, ${shlibs:Depends} ${misc:Depends} ${python:Depends}
 Description: Import upstream archives into darcs
- Darcs works fine for importing new archives,  However, for situations
- where the upstream renames of moves files and directories on a regular
- bases, version information can be lost.
+ Darcs works fine for importing new archives.  However, for situations
+ where the upstream renames or moves files and directories on a regular
+ basis, version information can be lost.
  .
  darcs-load-dirs works with darcs to import these things and preserve
  changes.  It works on a principle similar to Subversion's
