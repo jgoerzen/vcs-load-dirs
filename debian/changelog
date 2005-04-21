@@ -1,9 +1,15 @@
-tla-load-dirs (1.0.18) unstable; urgency=low
+tla-load-dirs (1.0.19) unstable; urgency=low
 
   * [darcs] Fixed moving a file to a directory whose parent didn't yet exist.
     Thanks to Matt Krai for helpful debugging information.  Closes: #293088.
 
  -- John Goerzen <jgoerzen@complete.org>  Wed, 20 Apr 2005 22:04:15 -0500
+
+tla-load-dirs (1.0.18) unstable; urgency=low
+
+  * Fixed typos in control.  Closes: #300420.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 19 Apr 2005 23:56:29 -0500
 
 tla-load-dirs (1.0.17) unstable; urgency=low
 
