@@ -84,14 +84,15 @@ class wc:
         if self.verb:
             print "Moving file %s to %s" % (src, dest)
         src, dest = self.slashstrip(src, dest)
-        destdir = os.path.dirname(util.chdircmd(self.wcpath,
-                                                os.path.abspath, dest))
-        if not os.path.exists(destdir):
-            self.makedirs(destdir)
 
-        if not isdarcs():
-            # darcs moves it itself
-            util.chdircmd(self.wcpath, os.rename, src, dest)
+        def doit():
+            if not os.path.exists(dest):
+                self.makedirs(dest)
+            if not isdarcs():
+                # Darcs moves it itself
+                os.rename(src, dest)
+
+        util.chdircmd(self.wcpath, doit)
 
     def delfile(self, file):
         if self.verb:
