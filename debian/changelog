@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.20) unstable; urgency=low
+
+  * Fixed rename problem caused by the fix in 1.0.19.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 25 Apr 2005 06:09:22 -0500
+
 tla-load-dirs (1.0.19) unstable; urgency=low
 
   * [darcs] Fixed moving a file to a directory whose parent didn't yet exist.
