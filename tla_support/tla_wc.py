@@ -87,7 +87,7 @@ class wc:
 
         def doit():
             destdir = os.path.dirname(dest)
-            if not os.path.exists(destdir):
+            if (not os.path.exists(destdir)) and destdir != '':
                 self.makedirs(destdir)
             if not isdarcs():
                 # Darcs moves it itself
