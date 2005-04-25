@@ -86,8 +86,9 @@ class wc:
         src, dest = self.slashstrip(src, dest)
 
         def doit():
-            if not os.path.exists(dest):
-                self.makedirs(dest)
+            destdir = os.path.dirname(dest)
+            if not os.path.exists(destdir):
+                self.makedirs(destdir)
             if not isdarcs():
                 # Darcs moves it itself
                 os.rename(src, dest)
