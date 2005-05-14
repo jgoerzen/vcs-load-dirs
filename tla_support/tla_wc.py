@@ -31,8 +31,8 @@ class wc:
 
     def gettreeversion(self):
         if isdarcs():
-            util.chdircmd(self.wcpath, util.getstdoutsafeexec, "darcs",
-                          ['check'])
+            #util.chdircmd(self.wcpath, util.getstdoutsafeexec, "darcs",
+            #              ['check'])
             return "Darcs repository"
         else:
             return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",

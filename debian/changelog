@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.21) unstable; urgency=low
+
+  * No longer run "darcs check".
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 14 May 2005 12:09:53 -0500
+
 tla-load-dirs (1.0.20) unstable; urgency=low
 
   * Fixed rename problem caused by the fix in 1.0.19.
