@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.22) unstable; urgency=low
+
+  * Pass --case-ok to darcs add.  Closes: #311041.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 31 May 2005 07:38:05 -0500
+
 tla-load-dirs (1.0.21) unstable; urgency=low
 
   * No longer run "darcs check".
