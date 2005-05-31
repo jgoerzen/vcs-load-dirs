@@ -53,7 +53,7 @@ def gettlasyntax():
 
 class Tla10:
     tagging_method = 'tagging-method'
-    add = 'add-tag'
+    add = ['add-tag']
     move = 'move-tag'
     delete = 'delete-tag'
     update = 'update --in-place .'
@@ -62,7 +62,7 @@ class Tla10:
 
 class Tla11:
     tagging_method = 'id-tagging-method'
-    add = 'add'
+    add = ['add']
     move = 'move'
     delete = 'delete'
     update = 'update'
@@ -71,7 +71,7 @@ class Tla11:
 
 class Darcs:
     tagging_method = None
-    add = 'add'
+    add = ['add', '--case-ok']
     move = 'mv'
     delete = None
     update = 'pull'
