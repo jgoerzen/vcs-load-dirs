@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.22) unstable; urgency=low
+
+  * Add --case-ok to darcs command line and sort filenames before adding.
+    Closes: #311041.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 31 May 2005 06:00:45 -0500
+
 tla-load-dirs (1.0.21) unstable; urgency=low
 
   * No longer run "darcs check".

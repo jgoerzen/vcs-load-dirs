@@ -128,6 +128,7 @@ class interaction:
 
         if self.verb:
             print "Adding %d files" % len(self.addedfiles)
+        self.addedfiles.sort() # Make sure top-level dirs added before files
         for file in self.addedfiles:
             self.addfile(file)
         self.writelog()
