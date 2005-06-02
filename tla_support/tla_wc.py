@@ -68,7 +68,7 @@ class wc:
                 raise
         file = self.slashstrip(file)
         util.chdircmd(self.wcpath, util.safeexec, tlacmd,
-                      cmd().add.append(file))
+                      cmd().add + [file])
 
     def movetag(self, src, dest):
         if self.verb:
