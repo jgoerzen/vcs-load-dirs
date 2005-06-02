@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.23) unstable; urgency=low
+
+  * Missed a change to tla_wc.py that resulted because of the changes in
+    1.0.22.  Thanks James Vega for the helpful bug report.  Closes: #311582.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed,  1 Jun 2005 21:20:09 -0500
+
 tla-load-dirs (1.0.22) unstable; urgency=low
 
   * Add --case-ok to darcs command line and sort filenames before adding.
