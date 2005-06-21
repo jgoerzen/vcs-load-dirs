@@ -67,8 +67,9 @@ class wc:
             except:
                 raise
         file = self.slashstrip(file)
-        util.chdircmd(self.wcpath, util.safeexec, tlacmd,
-                      cmd().add + [file])
+        if not isdarcs():
+            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+                          cmd().add + [file])
 
     def movetag(self, src, dest):
         if self.verb:
@@ -137,7 +138,7 @@ class wc:
             print "Committing changes"
         if isdarcs():
             util.chdircmd(self.wcpath, util.safeexec, tlacmd,
-                          [cmd().commit, "-a", "-m", self.summary,
+                          [cmd().commit, "-l", "-a", "-m", self.summary,
                            "--logfile", self.logfn,
                            "--delete-logfile"])
         else:
