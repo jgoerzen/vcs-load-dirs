@@ -5,7 +5,7 @@ from tla_support import util, commandver
 import sys
 
 def run(darcsdefault):
-    version = '1.0.20'
+    version = '1.0.25'
 
     parser = OptionParser(usage="usage: %prog [options] newpath",
                           version=version)
