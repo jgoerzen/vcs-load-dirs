@@ -59,17 +59,17 @@ class wc:
     def addtag(self, file):
         if self.verb:
             print "Adding %s" % file
-        shouldDir = (file[-1] == '/') and \
-                    (not os.path.exists(os.path.join(self.wcpath,
-                                                     file[:-1])))
-        if shouldDir:
+        if (file[-1] == '/') and \
+           (not os.path.exists(os.path.join(self.wcpath,
+                                            file[:-1]))):
             try:
                 print "addtag: making dir %s" % file[:-1]
                 os.makedirs(os.path.join(self.wcpath, file[:-1]))
             except:
                 raise
         file = self.slashstrip(file)
-        if (not isdarcs()) or shouldDir:
+        isdir = os.path.isdir(os.path.join(self.wcpath, file))
+        if (not isdarcs()) or isdir:
             # Darcs will see adds later, but we need to add dirs
             # now so darcs mv will work.
             util.chdircmd(self.wcpath, util.safeexec, tlacmd,
