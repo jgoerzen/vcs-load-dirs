@@ -46,9 +46,12 @@ def gettlasyntax():
     elif util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.0.') != -1:
         tlasyn = '1.0'
         tlaobj = Tla10()
-    else:
+    elif util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.1.') != -1:
         tlasyn = '1.1'
         tlaobj = Tla11()
+    else:
+        tlasyn = '1.3'
+        tlaobj = Tla13()
     return tlasyn
 
 class Tla10:
@@ -65,6 +68,15 @@ class Tla11:
     add = ['add']
     move = 'move'
     delete = 'delete'
+    update = 'update'
+    replay = 'replay'
+    commit = 'commit'
+
+class Tla13:
+    tagging_method = 'id-tagging-method'
+    add = ['add-id']
+    move = 'movei-id'
+    delete = 'delete-id'
     update = 'update'
     replay = 'replay'
     commit = 'commit'
