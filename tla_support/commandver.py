@@ -75,7 +75,7 @@ class Tla11:
 class Tla13:
     tagging_method = 'id-tagging-method'
     add = ['add-id']
-    move = 'movei-id'
+    move = 'move-id'
     delete = 'delete-id'
     update = 'update'
     replay = 'replay'
