@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.26) unstable; urgency=low
+
+  * Applied patch from Marc Dequènes to support new tla 1.3 command syntax.
+    Closes: #319505.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 24 Aug 2005 06:26:53 -0500
+
 tla-load-dirs (1.0.25) unstable; urgency=low
 
   * Fixed bug where moving files into a new directory could fail on darcs.
