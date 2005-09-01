@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.27) unstable; urgency=low
+
+  * Fixed docs for darcs_load_dirs and also fixed manpages to reflect
+    that upstream archive is now kept in darcs instead of tla.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu,  1 Sep 2005 06:18:46 -0500
+
 tla-load-dirs (1.0.26) unstable; urgency=low
 
   * Applied patch from Marc Dequènes to support new tla 1.3 command syntax.
