@@ -79,7 +79,7 @@
         do not use Arch or Darcs into an Arch or Darcs
         archive.  Along the way, it takes
         care of all the typical hassles: it will create tags in the
-        Arch repository for new files; delete tags for removed files;
+        repository for new files; delete tags for removed files;
         and move tags for files that have themselves been moved.
         &tld; can handle both first imports of a package and
         successive imports.
@@ -187,7 +187,8 @@
             <para>
               Sets the log summary line to the
               <replaceable>MSG</replaceable> supplied on the command
-              line.  This operation requires tla 1.1 or above; tla 1.0
+              line.  This operation requires darcs or 
+              tla 1.1 or above; tla 1.0
               does not provide the features necessary to implement it.
             </para>
           </listitem>
@@ -196,7 +197,7 @@
         <varlistentry><term>-v</term>
           <term>--verbose</term>
           <listitem><para>Causes &tld; to display additional status
-              information.  You will see the tla commands that are
+              information.  You will see the darcs/tla commands that are
               being run behind the scenes, and some executed commands
               may receive arguments asking them to be more verbose as
               well.
@@ -225,7 +226,7 @@
     </refsect1>
     <refsect1>
       <title>Copyright</title>
-      <para>&tld;, and this manual, are Copyright &copy; 2003-2004 John Goerzen.</para>
+      <para>&tld;, and this manual, are Copyright &copy; 2003-2005 John Goerzen.</para>
 
       <para>
 	This program is free software; you can redistribute it and/or modify
@@ -256,17 +257,12 @@
       </para>
 
       <para>
-        &tld; may be downloaded from <ulink
+        This package may be downloaded from
+        <ulink
           url="http://packages.debian.org/tla-load-dirs"></ulink>.
-        tla users may also obtain the latest version by using these
-        commands:
+        darcs users may also obtain the latest version with:
         <screen>
-$ <command>tla register-archive jgoerzen@complete.org--projects \
-  http://arch.complete.org/projects</command>
-$ <command>tla get jgoerzen@complete.org--projects/configs--head--1.0 \
-  jgoerzen</command>
-$ <command>cd jgoerzen</command>
-$ <command>tla buildcfg tla-load-dirs/latest</command>
+$ darcs get http://darcs.complete.org/tla-load-dirs
         </screen>
     </refsect1>
 

@@ -34,7 +34,8 @@ manpages: tla_load_dirs.1 darcs_load_dirs.1
 	docbook2man $<
 
 darcs_load_dirs.1: tla_load_dirs.1
-	sed s/tla_load_dirs/darcs_load_dirs/g < $< > $@
+	sed -e s/tla_load_dirs/darcs_load_dirs/g \
+	    -e s/TLA_LOAD_DIRS/DARCS_LOAD_DIRS/g < $< > $@
 
 include sgml-common/Makefile.common
 
