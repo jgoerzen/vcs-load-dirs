@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.28) unstable; urgency=low
+
+  * Applied patch from Teemu Ikonen to support baz.  Closes: #322622.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue,  6 Sep 2005 06:03:24 -0500
+
 tla-load-dirs (1.0.27) unstable; urgency=low
 
   * Fixed docs for darcs_load_dirs and also fixed manpages to reflect
