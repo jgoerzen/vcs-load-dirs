@@ -29,13 +29,17 @@ ps: $(MASTERBASE).ps
 html: html/index.html
 text: $(MASTERBASE).txt
 
-manpages: tla_load_dirs.1 darcs_load_dirs.1
+manpages: tla_load_dirs.1 darcs_load_dirs.1 baz_load_dirs.1
 %.1: %.sgml
 	docbook2man $<
 
 darcs_load_dirs.1: tla_load_dirs.1
 	sed -e s/tla_load_dirs/darcs_load_dirs/g \
 	    -e s/TLA_LOAD_DIRS/DARCS_LOAD_DIRS/g < $< > $@
+
+baz_load_dirs.1: tla_load_dirs.1
+	sed -e s/tla_load_dirs/baz_load_dirs/g \
+	    -e s/TLA_LOAD_DIRS/BAZ_LOAD_DIRS/g < $< > $@
 
 include sgml-common/Makefile.common
 
