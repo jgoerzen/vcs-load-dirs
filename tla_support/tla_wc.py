@@ -35,7 +35,7 @@ class wc:
             #              ['check'])
             return "Darcs repository"
         else:
-            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                  ['tree-version'])[0].strip() 
 
     def wcverify(self):
@@ -49,7 +49,7 @@ class wc:
         if isdarcs():
             return 'explicit'
         else:
-            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                  [cmd().tagging_method])[0].strip()
 
     def gettree(self):
@@ -121,7 +121,7 @@ class wc:
         self.summary = summary
         self.logtext = logtext
         if not isdarcs():
-            logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, "tla",
+            logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                    ['make-log'])[0].strip()
         else:
             logfn = ",,darcslog"

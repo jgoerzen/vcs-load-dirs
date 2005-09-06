@@ -22,14 +22,17 @@ tlaobj = None
 tlacmd = None
 darcs = False
 
-def setdarcs(x):
+def setscm(x):
     global darcs, tlacmd
-    if (x):
+    darcs = False
+    if (x == "darcs"):
         tlacmd = "darcs"
+        darcs = True
+    elif (x == "baz"):
+        tlacmd = "baz"
     else:
         tlacmd = "tla"
     print " TLACMD: ", tlacmd
-    darcs = x
 
 def isdarcs():
     global darcs
@@ -43,12 +46,18 @@ def gettlasyntax():
     if isdarcs():
         tlasyn = 'darcs'
         tlaobj = Darcs()
-    elif util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.0.') != -1:
+    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.0.') != -1:
         tlasyn = '1.0'
         tlaobj = Tla10()
-    elif util.getstdoutsafeexec('tla', ['-V'])[0].find('tla-1.1.') != -1:
+    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.1.') != -1:
         tlasyn = '1.1'
         tlaobj = Tla11()
+    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.3.') != -1:
+        tlasyn = '1.3'
+        tlaobj = Tla13()
+    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
+        tlasyn = 'baz1.4'
+        tlaobj = Baz14()        
     else:
         tlasyn = '1.3'
         tlaobj = Tla13()
@@ -80,6 +89,15 @@ class Tla13:
     update = 'update'
     replay = 'replay'
     commit = 'commit'
+
+class Baz14:
+    tagging_method = 'id-tagging-method'
+    add = ['add-id']
+    move = 'move-id'
+    delete = 'delete-id'
+    update = 'update'
+    replay = 'replay'
+    commit = 'commit'    
 
 class Darcs:
     tagging_method = None

@@ -34,7 +34,7 @@ def run(darcsdefault):
     if len(args) != 1:
         parser.error("Failed to specify a path to import.")
 
-    commandver.setdarcs(darcsdefault)
+    commandver.setscm(darcsdefault)
 
     from tla_support import tla_wc, tla_interact
 

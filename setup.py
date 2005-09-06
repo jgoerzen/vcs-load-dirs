@@ -23,7 +23,7 @@ setup(name = "tla_load_dirs",
       author = 'John Goerzen',
       author_email = 'jgoerzen@complete.org',
       packages = ['tla_support'],
-      scripts = ['tla_load_dirs', 'darcs_load_dirs']
+      scripts = ['tla_load_dirs', 'darcs_load_dirs', 'baz_load_dirs']
       #license = offlineimap.version.copyright + \
       #          ", Licensed under the GPL version 2"
 )

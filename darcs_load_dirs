@@ -23,4 +23,4 @@
 
 from tla_support import init
 
-init.run(darcsdefault=True)
+init.run("darcs")
