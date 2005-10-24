@@ -18,7 +18,7 @@
 
 import util
 import os.path
-from commandver import cmd, isdarcs, tlacmd
+from commandver import cmd, isdarcs, issvk, tlacmd
 
 class wc:
     """Object for a working copy."""
@@ -34,6 +34,8 @@ class wc:
             #util.chdircmd(self.wcpath, util.getstdoutsafeexec, "darcs",
             #              ['check'])
             return "Darcs repository"
+        elif issvk():
+            return "Svk repository"
         else:
             return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                  ['tree-version'])[0].strip() 

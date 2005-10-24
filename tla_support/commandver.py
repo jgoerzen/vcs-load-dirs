@@ -21,9 +21,10 @@ tlasyn = None
 tlaobj = None
 tlacmd = None
 darcs = False
+svk = False
 
 def setscm(x):
-    global darcs, tlacmd
+    global darcs, svk, tlacmd
     darcs = False
     if (x == "darcs"):
         tlacmd = "darcs"
@@ -32,13 +33,18 @@ def setscm(x):
         tlacmd = "baz"
     elif (x == "tla"):
         tlacmd = "tla"
-	else:
-		tlacmd = "svk"
+    else:
+        tlacmd = "svk"
+        svk = True
     print " TLACMD: ", tlacmd
 
 def isdarcs():
     global darcs
     return darcs
+
+def issvk():
+    global svk
+    return svk
 
 def gettlasyntax():
     global tlasyn, tlaobj
@@ -60,9 +66,9 @@ def gettlasyntax():
     elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
         tlasyn = 'baz1.4'
         tlaobj = Baz14()        
-	elif util.getstdoutsafeexec(tlacmd, ['-v'])[0].find('This is svk') != -1
-		tlasyn = 'svk'
-		tlaobj = Svk()
+    elif util.getstdoutsafeexec(tlacmd, ['-v'])[0].find('This is svk') != -1:
+        tlasyn = 'svk'
+        tlaobj = Svk()
     else:
         tlasyn = '1.3'
         tlaobj = Tla13()
@@ -115,7 +121,7 @@ class Darcs:
 
 class Svk:
 	tagging_method = None
-	add ['add']
+	add = ['add']
 	move = 'mv'
 	delete = 'rm'
 	update = 'pull'
