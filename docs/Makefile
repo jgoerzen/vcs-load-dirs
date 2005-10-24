@@ -41,6 +41,10 @@ baz_load_dirs.1: tla_load_dirs.1
 	sed -e s/tla_load_dirs/baz_load_dirs/g \
 	    -e s/TLA_LOAD_DIRS/BAZ_LOAD_DIRS/g < $< > $@
 
+svk_load_dirs.1: tla_load_dirs.1
+	sed -e s/tla_load_dirs/svk_load_dirs/g \
+		-e s/TLA_LOAD_DIRS/SVK_LOAD_DIRS/g < $< > $@
+
 include sgml-common/Makefile.common
 
 realclean: clean
