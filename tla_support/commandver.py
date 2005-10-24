@@ -30,7 +30,7 @@ def setscm(x):
         darcs = True
     elif (x == "baz"):
         tlacmd = "baz"
-    else:
+    elif (x == "tla"):
         tlacmd = "tla"
 	else:
 		tlacmd = "svk"
