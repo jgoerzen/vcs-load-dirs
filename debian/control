@@ -42,7 +42,7 @@ Description: Import upstream archives into baz
  changes.  It works on a principle similar to Subversion's
  svn_load_dirs or my tla_load_dirs package for tla.
 
-Package: baz-load-dirs
+Package: svk-load-dirs
 Architecture: all
 Depends: load-dirs-common, svk, ${shlibs:Depends} ${misc:Depends} ${python:Depends}
 Description: Import upstream archives into svk
