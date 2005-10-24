@@ -32,6 +32,8 @@ def setscm(x):
         tlacmd = "baz"
     else:
         tlacmd = "tla"
+	else:
+		tlacmd = "svk"
     print " TLACMD: ", tlacmd
 
 def isdarcs():
@@ -58,6 +60,9 @@ def gettlasyntax():
     elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
         tlasyn = 'baz1.4'
         tlaobj = Baz14()        
+	elif util.getstdoutsafeexec(tlacmd, ['-v'])[0].find('This is svk') != -1
+		tlasyn = 'svk'
+		tlaobj = Svk()
     else:
         tlasyn = '1.3'
         tlaobj = Tla13()
@@ -107,6 +112,15 @@ class Darcs:
     update = 'pull'
     replay = 'pull'
     commit = 'record'
+
+class Svk:
+	tagging_method = None
+	add ['add']
+	move = 'mv'
+	delete = 'rm'
+	update = 'pull'
+	replay = 'pull'
+	commit = 'commit'
 
 def cmd():
     global tlaobj
