@@ -29,7 +29,7 @@ ps: $(MASTERBASE).ps
 html: html/index.html
 text: $(MASTERBASE).txt
 
-manpages: tla_load_dirs.1 darcs_load_dirs.1 baz_load_dirs.1
+manpages: tla_load_dirs.1 darcs_load_dirs.1 baz_load_dirs.1 svk_load_dirs.1
 %.1: %.sgml
 	docbook2man $<
 
