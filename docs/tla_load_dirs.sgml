@@ -54,7 +54,7 @@
           <arg>-n</arg>
           <arg>--no-commit</arg>
         </group>
-        <arg choice="plain">newpath</arg>
+        <arg choice="plain">vendor_source_dir</arg>
       </cmdsynopsis>
 
       <cmdsynopsis>

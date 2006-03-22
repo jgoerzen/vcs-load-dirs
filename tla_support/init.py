@@ -7,7 +7,7 @@ import sys
 def run(darcsdefault):
     version = '1.0.28'
 
-    parser = OptionParser(usage="usage: %prog [options] newpath",
+    parser = OptionParser(usage="usage: %prog [options] vendor_source_dir",
                           version=version)
     parser.add_option("-w", "--wc", dest="wc", default=".",
                       help="Set working copy to WC (defaults to current directory)", metavar="WC")
