@@ -1,3 +1,11 @@
+tla-load-dirs (1.0.29) unstable; urgency=low
+
+  * Ack NMU.  Closes: #360730.
+  * Do import instead of commit when the current tree-version has no logs.
+    Patch from Lionel Elie Mamane.  Closes: #350234.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 17 Jun 2006 11:21:19 -0500
+
 tla-load-dirs (1.0.28-0.1) unstable; urgency=high
 
   * Non-maintainer upload.
