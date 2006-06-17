@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.28-0.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Add commas in dependency fields (Closes: #360730).
+
+ -- Luk Claes <luk@debian.org>  Mon, 17 Apr 2006 11:12:32 +0200
+
 tla-load-dirs (1.0.28) unstable; urgency=low
 
   * Applied patch from Teemu Ikonen to support baz.  Closes: #322622.
