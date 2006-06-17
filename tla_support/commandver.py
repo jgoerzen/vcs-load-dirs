@@ -82,6 +82,7 @@ class Tla10:
     update = 'update --in-place .'
     replay = 'replay --in-place .'
     commit = 'commit'
+    importcmd = 'import'
 
 class Tla11:
     tagging_method = 'id-tagging-method'
@@ -91,6 +92,7 @@ class Tla11:
     update = 'update'
     replay = 'replay'
     commit = 'commit'
+    importcmd = 'import'
 
 class Tla13:
     tagging_method = 'id-tagging-method'
@@ -100,6 +102,7 @@ class Tla13:
     update = 'update'
     replay = 'replay'
     commit = 'commit'
+    importcmd = 'import'
 
 class Baz14:
     tagging_method = 'id-tagging-method'
@@ -109,6 +112,7 @@ class Baz14:
     update = 'update'
     replay = 'replay'
     commit = 'commit'    
+    importcmd = 'import'
 
 class Darcs:
     tagging_method = None

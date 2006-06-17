@@ -148,7 +148,10 @@ class wc:
                            "--logfile", self.logfn,
                            "--delete-logfile"])
         else:
-            util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().commit])
+            if len(util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd, ['logs']))==0:
+                util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().importcmd])
+            else:
+                util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().commit])
         
     def slashstrip(self, *args):
         retval = []
