@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.30) unstable; urgency=low
+
+  * Apply patch from Gregory Colpart to fix a typo in svk support.
+    Closes: #382291.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu, 10 Aug 2006 16:13:13 -0500
+
 tla-load-dirs (1.0.29) unstable; urgency=low
 
   * Ack NMU.  Closes: #360730.

@@ -66,7 +66,7 @@ def gettlasyntax():
     elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
         tlasyn = 'baz1.4'
         tlaobj = Baz14()        
-    elif util.getstdoutsafeexec(tlacmd, ['-v'])[0].find('This is svk') != -1:
+    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('This is svk') != -1:
         tlasyn = 'svk'
         tlaobj = Svk()
     else:
