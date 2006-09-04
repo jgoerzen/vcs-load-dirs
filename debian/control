@@ -7,7 +7,7 @@ Standards-Version: 3.5.8
 
 Package: tla-load-dirs
 Architecture: all
-Depends: load-dirs-common, tla, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Depends: load-dirs-common (= ${Source-Version}), tla, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Import upstream archives into tla/arch
  Tom Lord's arch/tla system is capable of importing upstream directories
  into a tla archive for some archives.  For situations where the upstream
@@ -20,7 +20,7 @@ Description: Import upstream archives into tla/arch
 
 Package: darcs-load-dirs
 Architecture: all
-Depends: load-dirs-common, darcs, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Depends: load-dirs-common (= ${Source-Version}), darcs, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Import upstream archives into darcs
  Darcs works fine for importing new archives.  However, for situations
  where the upstream renames or moves files and directories on a regular
@@ -32,7 +32,7 @@ Description: Import upstream archives into darcs
 
 Package: baz-load-dirs
 Architecture: all
-Depends: load-dirs-common, bazaar, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Depends: load-dirs-common (= ${Source-Version}), bazaar, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Import upstream archives into baz
  Bazaar (baz) works fine for importing new archives.  However, for situations
  where the upstream renames or moves files and directories on a regular
@@ -44,7 +44,7 @@ Description: Import upstream archives into baz
 
 Package: svk-load-dirs
 Architecture: all
-Depends: load-dirs-common, svk, ${shlibs:Depends} ${misc:Depends} ${python:Depends}
+Depends: load-dirs-common (= ${Source-Version}), svk, ${shlibs:Depends} ${misc:Depends} ${python:Depends}
 Description: Import upstream archives into svk
  Svk works fine for importing new archives.  However, for situations
  where the upstream renames or moves files and directories on a regular
