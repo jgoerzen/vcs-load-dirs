@@ -1,6 +1,7 @@
-tla-load-dirs (1.0.31) unstable; urgency=low
+tla-load-dirs (1.0.31) unstable; urgency=high
 
   * Update deps on load-dirs-common.  Closes: #385644.
+  * Update for new Python policy.  Closes: #380975.
 
  -- John Goerzen <jgoerzen@complete.org>  Mon,  4 Sep 2006 09:06:41 -0500
 
