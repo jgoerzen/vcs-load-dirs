@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.31) unstable; urgency=low
+
+  * Update deps on load-dirs-common.  Closes: #385644.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon,  4 Sep 2006 09:06:41 -0500
+
 tla-load-dirs (1.0.30) unstable; urgency=low
 
   * Apply patch from Gregory Colpart to fix a typo in svk support.
