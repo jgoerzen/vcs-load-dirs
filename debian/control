@@ -2,11 +2,13 @@ Source: tla-load-dirs
 Section: devel
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends-Indep: debhelper (>= 4.1.81), python2.3-dev, gtk-doc-tools, sgml2x, docbook-utils, jade, python (>= 2.3), python-dev
+XS-Python-Version: current
+Build-Depends-Indep: debhelper (>= 5.0.37.2), python2.3-dev, gtk-doc-tools, sgml2x, docbook-utils, jade, python (>= 2.3), python-dev, python-central (>= 0.5)
 Standards-Version: 3.5.8
 
 Package: tla-load-dirs
 Architecture: all
+XB-Python-Version: ${python:Versions}
 Depends: load-dirs-common (= ${Source-Version}), tla, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Import upstream archives into tla/arch
  Tom Lord's arch/tla system is capable of importing upstream directories
@@ -20,6 +22,7 @@ Description: Import upstream archives into tla/arch
 
 Package: darcs-load-dirs
 Architecture: all
+XB-Python-Version: ${python:Versions}
 Depends: load-dirs-common (= ${Source-Version}), darcs, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Import upstream archives into darcs
  Darcs works fine for importing new archives.  However, for situations
@@ -32,6 +35,7 @@ Description: Import upstream archives into darcs
 
 Package: baz-load-dirs
 Architecture: all
+XB-Python-Version: ${python:Versions}
 Depends: load-dirs-common (= ${Source-Version}), bazaar, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Import upstream archives into baz
  Bazaar (baz) works fine for importing new archives.  However, for situations
@@ -44,6 +48,7 @@ Description: Import upstream archives into baz
 
 Package: svk-load-dirs
 Architecture: all
+XB-Python-Version: ${python:Versions}
 Depends: load-dirs-common (= ${Source-Version}), svk, ${shlibs:Depends} ${misc:Depends} ${python:Depends}
 Description: Import upstream archives into svk
  Svk works fine for importing new archives.  However, for situations
@@ -56,6 +61,7 @@ Description: Import upstream archives into svk
 
 Package: load-dirs-common
 Architecture: all
+XB-Python-Version: ${python:Versions}
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Conflicts: tla-load-dirs (<< 1.0.14)
 Description: Common files for tla-load-dirs and darcs-load-dirs
