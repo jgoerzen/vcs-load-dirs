@@ -1,3 +1,10 @@
+tla-load-dirs (1.0.32) unstable; urgency=low
+
+  * Now build baz-load-dirs again, since bazaar is no longer broken.
+    Closes: #390458.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon,  9 Oct 2006 07:02:03 -0500
+
 tla-load-dirs (1.0.31) unstable; urgency=high
 
   * Update deps on load-dirs-common.  Closes: #385644.
