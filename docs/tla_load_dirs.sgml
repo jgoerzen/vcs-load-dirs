@@ -24,7 +24,7 @@
 
     <refnamediv>
       <refname>tla_load_dirs</refname>
-      <refpurpose>Import upstream archives into tla/arch or darcs and handle renames</refpurpose>
+      <refpurpose>Import upstream archives into tla/arch,darcs or git and handle renames</refpurpose>
     </refnamediv>
 
     <refsynopsisdiv>
@@ -76,7 +76,7 @@
       <title>Description</title>
       <para>
         &tld; is a tool to help you import archives from people that
-        do not use Arch or Darcs into an Arch or Darcs
+        do not use Arch, Darcs or Git into an Arch, Darcs or Git
         archive.  Along the way, it takes
         care of all the typical hassles: it will create tags in the
         repository for new files; delete tags for removed files;
@@ -197,7 +197,7 @@
         <varlistentry><term>-v</term>
           <term>--verbose</term>
           <listitem><para>Causes &tld; to display additional status
-              information.  You will see the darcs/tla commands that are
+              information.  You will see the darcs/tla/git commands that are
               being run behind the scenes, and some executed commands
               may receive arguments asking them to be more verbose as
               well.
@@ -271,6 +271,7 @@ $ darcs get http://darcs.complete.org/tla-load-dirs
       <para>
         <application>tla</application>(1),
         <application>darcs</application>(1),
+        <application>git</application>(1),
         <application>tla-buildpackage</application>(1).
       </para>
     </refsect1>

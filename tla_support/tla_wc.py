@@ -18,7 +18,7 @@
 
 import util
 import os.path
-from commandver import cmd, isdarcs, issvk, tlacmd
+from commandver import cmd, isdarcs, issvk, isgit, tlacmd
 
 class wc:
     """Object for a working copy."""
@@ -36,6 +36,8 @@ class wc:
             return "Darcs repository"
         elif issvk():
             return "Svk repository"
+        elif isgit():
+            return "Git repository"
         else:
             return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                  ['tree-version'])[0].strip() 
@@ -48,7 +50,7 @@ class wc:
         return 1
 
     def gettaggingmethod(self):
-        if isdarcs():
+        if isdarcs() or isgit():
             return 'explicit'
         else:
             return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
@@ -56,7 +58,7 @@ class wc:
 
     def gettree(self):
         return util.maketree(self.wcpath,
-                             ignore = [r'(^(\{arch\}$|,,|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
+                             ignore = [r'(^(\{arch\}$|,,|\.git|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
         if self.verb:
@@ -80,7 +82,7 @@ class wc:
     def movetag(self, src, dest):
         if self.verb:
             print "Moving %s to %s" % (src, dest)
-        if src[-1] == '/' and dest[-1] == '/' and (not isdarcs()):
+        if src[-1] == '/' and dest[-1] == '/' and (not isdarcs() and not isgit()):
             # Dir to dir -- mv will catch it already.
             return
         src, dest = self.slashstrip(src, dest)
@@ -96,8 +98,8 @@ class wc:
             destdir = os.path.dirname(dest)
             if (not os.path.exists(destdir)) and destdir != '':
                 self.makedirs(destdir)
-            if not isdarcs():
-                # Darcs moves it itself
+            if not isdarcs() and not isgit():
+                # Darcs and git move it itself
                 os.rename(src, dest)
 
         util.chdircmd(self.wcpath, doit)
@@ -112,6 +114,7 @@ class wc:
             util.safeexec("rm", ['-rf', fullfile])
 
     def deltag(self, file):
+    	# FXIME: what about git?
         if not isdarcs():
             if self.verb:
                 print "Deleting %s" % file
@@ -122,16 +125,18 @@ class wc:
     def makelog(self, summary, logtext):
         self.summary = summary
         self.logtext = logtext
-        if not isdarcs():
+	if isgit():
+            logfn = ",,gitlog"
+	elif isdarcs():
+            logfn = ",,darcslog"
+	else:
             logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                    ['make-log'])[0].strip()
-        else:
-            logfn = ",,darcslog"
 
         self.logfn = logfn
         
         fd = open(logfn, "w")
-        if not isdarcs():
+        if not isdarcs() and not isgit():
             fd.write("Summary: %s\n" % summary)
             fd.write("Keywords: \n\n")
         fd.write(logtext)
@@ -147,6 +152,10 @@ class wc:
                           [cmd().commit, "-l", "-a", "-m", self.summary,
                            "--logfile", self.logfn,
                            "--delete-logfile"])
+        elif isgit():
+            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+                          [cmd().commit, "-a", "-F", self.logfn])
+	    os.unlink(self.logfn)
         else:
             if len(util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd, ['logs']))==0:
                 util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().importcmd])

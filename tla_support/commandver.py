@@ -22,9 +22,10 @@ tlaobj = None
 tlacmd = None
 darcs = False
 svk = False
+git = False
 
 def setscm(x):
-    global darcs, svk, tlacmd
+    global darcs, svk, git, tlacmd
     darcs = False
     if (x == "darcs"):
         tlacmd = "darcs"
@@ -33,6 +34,9 @@ def setscm(x):
         tlacmd = "baz"
     elif (x == "tla"):
         tlacmd = "tla"
+    elif (x == "git"):
+        tlacmd = "git"
+        git = True
     else:
         tlacmd = "svk"
         svk = True
@@ -46,6 +50,10 @@ def issvk():
     global svk
     return svk
 
+def isgit():
+    global git
+    return git
+
 def gettlasyntax():
     global tlasyn, tlaobj
     if tlasyn != None:
@@ -54,6 +62,9 @@ def gettlasyntax():
     if isdarcs():
         tlasyn = 'darcs'
         tlaobj = Darcs()
+    if isgit():
+        tlasyn = 'Git'
+        tlaobj = Git()
     elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.0.') != -1:
         tlasyn = '1.0'
         tlaobj = Tla10()
@@ -122,6 +133,15 @@ class Darcs:
     update = 'pull'
     replay = 'pull'
     commit = 'record'
+
+class Git:
+    tagging_method = None
+    add = ['add']
+    move = 'mv'
+    delete = 'rm'
+    update = 'checkout'
+    replay = None 
+    commit = 'commit'
 
 class Svk:
 	tagging_method = None
