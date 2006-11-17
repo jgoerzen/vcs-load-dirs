@@ -1,5 +1,5 @@
 # arch-tag: tla version-specific command execution
-# Copyright (C) 2003 John Goerzen
+# Copyright (C) 2003-2006 John Goerzen
 # <jgoerzen@complete.org>
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,6 @@ git = False
 
 def setscm(x):
     global darcs, svk, git, tlacmd
-    darcs = False
     if (x == "darcs"):
         tlacmd = "darcs"
         darcs = True
@@ -62,7 +61,7 @@ def gettlasyntax():
     if isdarcs():
         tlasyn = 'darcs'
         tlaobj = Darcs()
-    if isgit():
+    elif isgit():
         tlasyn = 'Git'
         tlaobj = Git()
     elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.0.') != -1:
