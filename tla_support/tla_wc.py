@@ -133,9 +133,9 @@ class wc:
             logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
                                    ['make-log'])[0].strip()
 
-        self.logfn = logfn
+        self.logfn = os.path.abspath(logfn)
         
-        fd = open(logfn, "w")
+        fd = open(self.logfn, "w")
         if not isdarcs() and not isgit():
             fd.write("Summary: %s\n" % summary)
             fd.write("Keywords: \n\n")
