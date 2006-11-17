@@ -1,3 +1,9 @@
+tla-load-dirs (1.0.34) unstable; urgency=high
+
+  * Fix darcs support, which one of the earlier git patches broke.
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri, 17 Nov 2006 06:16:14 -0600
+
 tla-load-dirs (1.0.33) unstable; urgency=low
 
   * Added support for git, thanks to a patch from Guido Guenther.
