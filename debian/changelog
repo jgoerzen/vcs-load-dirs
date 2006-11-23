@@ -4,6 +4,13 @@ tla-load-dirs (1.0.34) unstable; urgency=high
 
  -- John Goerzen <jgoerzen@complete.org>  Fri, 17 Nov 2006 06:16:14 -0600
 
+tla-load-dirs (1.0.33.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Make sure git-load-dirs actually gets installed (Closes: #395128)
+
+ -- Guido Guenther <agx@sigxcpu.org>  Thu,  9 Nov 2006 09:48:02 +0100
+
 tla-load-dirs (1.0.33) unstable; urgency=low
 
   * Added support for git, thanks to a patch from Guido Guenther.
