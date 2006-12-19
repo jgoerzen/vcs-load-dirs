@@ -136,7 +136,9 @@ class wc:
         self.logfn = os.path.abspath(logfn)
         
         fd = open(self.logfn, "w")
-        if not isdarcs() and not isgit():
+        if isgit():
+            fd.write("%s\n\n" % summary)
+        elif not isdarcs():
             fd.write("Summary: %s\n" % summary)
             fd.write("Keywords: \n\n")
         fd.write(logtext)
