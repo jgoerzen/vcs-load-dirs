@@ -36,9 +36,9 @@ def run(darcsdefault):
 
     commandver.setscm(darcsdefault)
 
-    from vcs_support import tla_wc, tla_interact
+    from vcs_support import vcs_wc, tla_interact
 
-    wc = tla_wc.wc(options.wc, verbose = options.verbose)
+    wc = vcs_wc.wc(options.wc, verbose = options.verbose)
     if not wc.gettaggingmethod() in ['explicit', 'tagline']:
         print "Working directory uses unsupported tagging method %s" % \
               wc.gettaggingmethod()
