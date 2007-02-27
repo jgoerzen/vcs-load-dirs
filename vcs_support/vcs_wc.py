@@ -1,5 +1,4 @@
-# arch-tag: tla working copy support 1062530429
-# Copyright (C) 2003 John Goerzen
+# Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -34,6 +33,8 @@ class wc:
             #util.chdircmd(self.wcpath, util.getstdoutsafeexec, "darcs",
             #              ['check'])
             return "Darcs repository"
+        elif ishg():
+            return "Mercurial repository"
         elif issvk():
             return "Svk repository"
         elif isgit():
@@ -58,7 +59,7 @@ class wc:
 
     def gettree(self):
         return util.maketree(self.wcpath,
-                             ignore = [r'(^(\{arch\}$|,,|\.git|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
+                             ignore = [r'(^(\{arch\}$|,,|\.hg|\.hgtags|\.git|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
         if self.verb:
@@ -73,17 +74,23 @@ class wc:
                 raise
         file = self.slashstrip(file)
         isdir = os.path.isdir(os.path.join(self.wcpath, file))
-        if (not isdarcs()) or isdir:
+        if (not ishg()) and ((not isdarcs()) or isdir):
             # Darcs will see adds later, but we need to add dirs
             # now so darcs mv will work.
+            #
+            # Mercurial will see adds later, and doesn't track directories,
+            # so we don't do anything with it.
             util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                           cmd().add + [file])
 
     def movetag(self, src, dest):
         if self.verb:
             print "Moving %s to %s" % (src, dest)
-        if src[-1] == '/' and dest[-1] == '/' and (not isdarcs() and not isgit()):
-            # Dir to dir -- mv will catch it already.
+        if src[-1] == '/' \
+               and dest[-1] == '/' \
+               and (not isdarcs() and not isgit()):
+            # Dir to dir -- darcs mv will catch it already.
+            # Git doesn't do rename recording, so don't worry about it?
             return
         src, dest = self.slashstrip(src, dest)
         util.chdircmd(self.wcpath, util.safeexec, tlacmd,
@@ -99,7 +106,7 @@ class wc:
             if (not os.path.exists(destdir)) and destdir != '':
                 self.makedirs(destdir)
             if not isdarcs() and not isgit():
-                # Darcs and git move it itself
+                # Darcs, hg, and git actually 
                 os.rename(src, dest)
 
         util.chdircmd(self.wcpath, doit)
@@ -125,7 +132,9 @@ class wc:
     def makelog(self, summary, logtext):
         self.summary = summary
         self.logtext = logtext
-	if isgit():
+        if ishg():
+            logfn = ",,hglog"
+        elif isgit():
             logfn = ",,gitlog"
 	elif isdarcs():
             logfn = ",,darcslog"
@@ -138,7 +147,9 @@ class wc:
         fd = open(self.logfn, "w")
         if isgit():
             fd.write("%s\n\n" % summary)
-        elif not isdarcs():
+        elif ishg():
+            fd.write("%s\n" % summary)
+        elif not (isdarcs() or ishg()):
             fd.write("Summary: %s\n" % summary)
             fd.write("Keywords: \n\n")
         fd.write(logtext)
@@ -158,6 +169,10 @@ class wc:
             util.chdircmd(self.wcpath, util.safeexec, tlacmd,
                           [cmd().commit, "-a", "-F", self.logfn])
 	    os.unlink(self.logfn)
+        elif ishg():
+            util.chdircmd(self.wcpath, util.safeexec, tlxcmd,
+                          [cmd().commit, "-A", "-l", self.logfn])
+            os.unlink(self.logfn)
         else:
             if len(util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd, ['logs']))==0:
                 util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().importcmd])

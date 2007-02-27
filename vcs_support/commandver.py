@@ -23,9 +23,10 @@ tlacmd = None
 darcs = False
 svk = False
 git = False
+hg = False
 
 def setscm(x):
-    global darcs, svk, git, tlacmd
+    global darcs, svk, git, tlacmd, hg
     if (x == "darcs"):
         tlacmd = "darcs"
         darcs = True
@@ -36,10 +37,16 @@ def setscm(x):
     elif (x == "git"):
         tlacmd = "git"
         git = True
-    else:
+    elif (x == "hg"):
+        tlacmd = "hg"
+        hg = True
+    elif (x == "svk"):
         tlacmd = "svk"
         svk = True
-    print " TLACMD: ", tlacmd
+    else:
+        print "Failed to determine VCS to use"
+        sys.exit(2)
+    print " VCSCMD: ", tlacmd
 
 def isdarcs():
     global darcs
@@ -53,6 +60,10 @@ def isgit():
     global git
     return git
 
+def ishg():
+    global hg
+    return hg
+
 def gettlasyntax():
     global tlasyn, tlaobj
     if tlasyn != None:
@@ -61,6 +72,9 @@ def gettlasyntax():
     if isdarcs():
         tlasyn = 'darcs'
         tlaobj = Darcs()
+    elif ishg():
+        tlasyn = 'hg'
+        tlaobj = Hg()
     elif isgit():
         tlasyn = 'Git'
         tlaobj = Git()
@@ -132,6 +146,15 @@ class Darcs:
     update = 'pull'
     replay = 'pull'
     commit = 'record'
+
+class Hg:
+    tagging_method = None
+    add = ['add']
+    move = 'mv'
+    delete = None
+    update = 'pull'
+    replay = 'pull'
+    commit = 'commit'
 
 class Git:
     tagging_method = None
