@@ -40,7 +40,7 @@ hg_load_dirs.1: vcs_load_dirs.1
 	sed -e s/vcs_load_dirs/hg_load_dirs/g \
 	    -e s/VCS_LOAD_DIRS/HG_LOAD_DIRS/g < $< > $@
 
-tla_load_dirs.1: tla_load_dirs.1
+tla_load_dirs.1: vcs_load_dirs.1
 	sed -e s/vcs_load_dirs/tla_load_dirs/g \
 	    -e s/VCS_LOAD_DIRS/TLA_LOAD_DIRS/g < $< > $@
 
