@@ -36,7 +36,7 @@ def run(darcsdefault):
 
     commandver.setscm(darcsdefault)
 
-    from vcs_support import vcs_wc, tla_interact
+    from vcs_support import vcs_wc, vcs_interact
 
     wc = vcs_wc.wc(options.wc, verbose = options.verbose)
     if not wc.gettaggingmethod() in ['explicit', 'tagline']:
@@ -45,7 +45,7 @@ def run(darcsdefault):
         sys.exit(1)
 
 
-    tla_interact.interaction(wc, args[0], options.docommit, log = log,
+    vcs_interact.interaction(wc, args[0], options.docommit, log = log,
                              verbose = options.verbose,
                              summary = options.summary).main()
     
