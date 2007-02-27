@@ -147,6 +147,8 @@ class wc:
         fd = open(self.logfn, "w")
         if isgit():
             fd.write("%s\n\n" % summary)
+        if ishg():
+            fd.write("%s\n" % summary)
         elif not (isdarcs() or ishg()):
             fd.write("Summary: %s\n" % summary)
             fd.write("Keywords: \n\n")
