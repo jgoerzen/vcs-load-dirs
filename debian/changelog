@@ -1,3 +1,10 @@
+vcs-load-dirs (1.1.0) unstable; urgency=low
+
+  * New version.
+  * Source renamed to vcs-load-dirs.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 26 Feb 2007 05:06:12 -0600
+
 tla-load-dirs (1.0.35) unstable; urgency=low
 
   * Merge and ACK NMU 1.0.33.1.  Closes: #395128.
