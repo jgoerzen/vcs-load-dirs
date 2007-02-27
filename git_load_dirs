@@ -1,9 +1,9 @@
-#!/usr/bin/python2.3
+#!/usr/bin/python
 #arch-tag: darcs load dirs primary executable
 
-### REMEMBER TO UPDATE VERSION IN tla_support/init.py
+### REMEMBER TO UPDATE VERSION IN vcs_support/init.py
 
-# Copyright (C) 2006 John Goerzen
+# Copyright (C) 2006-2007 John Goerzen
 # <jgoerzen@complete.org>
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -21,6 +21,6 @@
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-from tla_support import init
+from vcs_support import init
 
 init.run("git")

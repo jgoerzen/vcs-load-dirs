@@ -1,6 +1,6 @@
-#!/usr/bin/env python2.3
+#!/usr/bin/env python
 # arch-tag: tla load dirs main setup script
-# Copyright (C) 2003 John Goerzen
+# Copyright (C) 2003-2007 John Goerzen
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 
 from distutils.core import setup
 
-setup(name = "tla_load_dirs",
+setup(name = "vcs_load_dirs",
       author = 'John Goerzen',
       author_email = 'jgoerzen@complete.org',
-      packages = ['tla_support'],
+      packages = ['vcs_support'],
       scripts = ['tla_load_dirs', 'darcs_load_dirs', 'baz_load_dirs', 'svk_load_dirs', 'git_load_dirs']
       #license = offlineimap.version.copyright + \
       #          ", Licensed under the GPL version 2"
