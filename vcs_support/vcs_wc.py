@@ -105,7 +105,7 @@ class wc:
             destdir = os.path.dirname(dest)
             if (not os.path.exists(destdir)) and destdir != '':
                 self.makedirs(destdir)
-            if not isdarcs() and not isgit():
+            if not isdarcs() and (not isgit()) and (not ishg()):
                 # Darcs, hg, and git actually 
                 os.rename(src, dest)
 
@@ -122,7 +122,7 @@ class wc:
 
     def deltag(self, file):
     	# FXIME: what about git?
-        if not isdarcs():
+        if (not isdarcs()) and (not ishg()):
             if self.verb:
                 print "Deleting %s" % file
             if os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file)):
