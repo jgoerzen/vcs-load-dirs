@@ -6,7 +6,7 @@
 #export DH_VERBOSE=1
 
 PYTHON=python
-PACKAGE=tla-load-dirs
+PACKAGE=vcs-load-dirs
 
 
 CFLAGS = -Wall -g

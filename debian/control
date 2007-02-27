@@ -1,4 +1,4 @@
-Source: tla-load-dirs
+Source: vcs-load-dirs
 Section: devel
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
@@ -30,6 +30,19 @@ Description: Import upstream archives into darcs
  basis, version information can be lost.
  .
  darcs-load-dirs works with darcs to import these things and preserve
+ changes.  It works on a principle similar to Subversion's
+ svn_load_dirs or my tla_load_dirs package for Arch.
+
+Package: hg-load-dirs
+Architecture: all
+XB-Python-Version: ${python:Versions}
+Depends: load-dirs-common (= ${Source-Version}), mercurial, ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Description: Import upstream archives into darcs
+ Mercurial works fine for importing new archives.  However, for situations
+ where the upstream renames or moves files and directories on a regular
+ basis, version information can be lost.
+ .
+ hg-load-dirs works with darcs to import these things and preserve
  changes.  It works on a principle similar to Subversion's
  svn_load_dirs or my tla_load_dirs package for Arch.
 
