@@ -18,7 +18,7 @@
 
 import util
 tlasyn = None
-tlaobj = None
+vcsobj = None
 vcscmd = None
 darcs = False
 svk = False
@@ -65,37 +65,37 @@ def ishg():
     return hg
 
 def gettlasyntax():
-    global tlasyn, tlaobj
+    global tlasyn, vcsobj
     if tlasyn != None:
         return tlasyn
 
     if isdarcs():
         tlasyn = 'darcs'
-        tlaobj = Darcs()
+        vcsobj = Darcs()
     elif ishg():
         tlasyn = 'hg'
-        tlaobj = Hg()
+        vcsobj = Hg()
     elif isgit():
         tlasyn = 'Git'
-        tlaobj = Git()
+        vcsobj = Git()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.0.') != -1:
         tlasyn = '1.0'
-        tlaobj = Tla10()
+        vcsobj = Tla10()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.1.') != -1:
         tlasyn = '1.1'
-        tlaobj = Tla11()
+        vcsobj = Tla11()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.3.') != -1:
         tlasyn = '1.3'
-        tlaobj = Tla13()
+        vcsobj = Tla13()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
         tlasyn = 'baz1.4'
-        tlaobj = Baz14()        
+        vcsobj = Baz14()        
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('This is svk') != -1:
         tlasyn = 'svk'
-        tlaobj = Svk()
+        vcsobj = Svk()
     else:
         tlasyn = '1.3'
-        tlaobj = Tla13()
+        vcsobj = Tla13()
     return tlasyn
 
 class Tla10:
@@ -175,6 +175,6 @@ class Svk:
 	commit = 'commit'
 
 def cmd():
-    global tlaobj
+    global vcsobj
     gettlasyntax()
-    return tlaobj
+    return vcsobj
