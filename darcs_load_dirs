@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #arch-tag: darcs load dirs primary executable
 
-### REMEMBER TO UPDATE VERSION IN tla_support/init.py
+### REMEMBER TO UPDATE VERSION IN vcs_support/init.py
 
 # Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
