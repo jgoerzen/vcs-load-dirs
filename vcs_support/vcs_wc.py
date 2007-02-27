@@ -17,7 +17,7 @@
 
 import util
 import os.path
-from commandver import cmd, isdarcs, issvk, isgit, tlacmd
+from commandver import cmd, isdarcs, issvk, isgit, vcscmd
 
 class wc:
     """Object for a working copy."""
@@ -40,7 +40,7 @@ class wc:
         elif isgit():
             return "Git repository"
         else:
-            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
+            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd,
                                  ['tree-version'])[0].strip() 
 
     def wcverify(self):
@@ -54,7 +54,7 @@ class wc:
         if isdarcs() or isgit():
             return 'explicit'
         else:
-            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
+            return util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd,
                                  [cmd().tagging_method])[0].strip()
 
     def gettree(self):
@@ -80,7 +80,7 @@ class wc:
             #
             # Mercurial will see adds later, and doesn't track directories,
             # so we don't do anything with it.
-            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+            util.chdircmd(self.wcpath, util.safeexec, vcscmd,
                           cmd().add + [file])
 
     def movetag(self, src, dest):
@@ -93,7 +93,7 @@ class wc:
             # Git doesn't do rename recording, so don't worry about it?
             return
         src, dest = self.slashstrip(src, dest)
-        util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+        util.chdircmd(self.wcpath, util.safeexec, vcscmd,
                       [cmd().move, src, dest])
 
     def movefile(self, src, dest):
@@ -126,7 +126,7 @@ class wc:
             if self.verb:
                 print "Deleting %s" % file
             if os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file)):
-                util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+                util.chdircmd(self.wcpath, util.safeexec, vcscmd,
                           [cmd().delete, file])
 
     def makelog(self, summary, logtext):
@@ -139,7 +139,7 @@ class wc:
 	elif isdarcs():
             logfn = ",,darcslog"
 	else:
-            logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd,
+            logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd,
                                    ['make-log'])[0].strip()
 
         self.logfn = os.path.abspath(logfn)
@@ -161,12 +161,12 @@ class wc:
         if self.verb:
             print "Committing changes"
         if isdarcs():
-            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+            util.chdircmd(self.wcpath, util.safeexec, vcscmd,
                           [cmd().commit, "-l", "-a", "-m", self.summary,
                            "--logfile", self.logfn,
                            "--delete-logfile"])
         elif isgit():
-            util.chdircmd(self.wcpath, util.safeexec, tlacmd,
+            util.chdircmd(self.wcpath, util.safeexec, vcscmd,
                           [cmd().commit, "-a", "-F", self.logfn])
 	    os.unlink(self.logfn)
         elif ishg():
@@ -174,10 +174,10 @@ class wc:
                           [cmd().commit, "-A", "-l", self.logfn])
             os.unlink(self.logfn)
         else:
-            if len(util.chdircmd(self.wcpath, util.getstdoutsafeexec, tlacmd, ['logs']))==0:
-                util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().importcmd])
+            if len(util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd, ['logs']))==0:
+                util.chdircmd(self.wcpath, util.safeexec, vcscmd, [cmd().importcmd])
             else:
-                util.chdircmd(self.wcpath, util.safeexec, tlacmd, [cmd().commit])
+                util.chdircmd(self.wcpath, util.safeexec, vcscmd, [cmd().commit])
         
     def slashstrip(self, *args):
         retval = []

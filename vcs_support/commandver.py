@@ -19,34 +19,34 @@
 import util
 tlasyn = None
 tlaobj = None
-tlacmd = None
+vcscmd = None
 darcs = False
 svk = False
 git = False
 hg = False
 
 def setscm(x):
-    global darcs, svk, git, tlacmd, hg
+    global darcs, svk, git, vcscmd, hg
     if (x == "darcs"):
-        tlacmd = "darcs"
+        vcscmd = "darcs"
         darcs = True
     elif (x == "baz"):
-        tlacmd = "baz"
+        vcscmd = "baz"
     elif (x == "tla"):
-        tlacmd = "tla"
+        vcscmd = "tla"
     elif (x == "git"):
-        tlacmd = "git"
+        vcscmd = "git"
         git = True
     elif (x == "hg"):
-        tlacmd = "hg"
+        vcscmd = "hg"
         hg = True
     elif (x == "svk"):
-        tlacmd = "svk"
+        vcscmd = "svk"
         svk = True
     else:
         print "Failed to determine VCS to use"
         sys.exit(2)
-    print " VCSCMD: ", tlacmd
+    print " VCSCMD: ", vcscmd
 
 def isdarcs():
     global darcs
@@ -78,19 +78,19 @@ def gettlasyntax():
     elif isgit():
         tlasyn = 'Git'
         tlaobj = Git()
-    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.0.') != -1:
+    elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.0.') != -1:
         tlasyn = '1.0'
         tlaobj = Tla10()
-    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.1.') != -1:
+    elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.1.') != -1:
         tlasyn = '1.1'
         tlaobj = Tla11()
-    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('tla-1.3.') != -1:
+    elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.3.') != -1:
         tlasyn = '1.3'
         tlaobj = Tla13()
-    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
+    elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
         tlasyn = 'baz1.4'
         tlaobj = Baz14()        
-    elif util.getstdoutsafeexec(tlacmd, ['-V'])[0].find('This is svk') != -1:
+    elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('This is svk') != -1:
         tlasyn = 'svk'
         tlaobj = Svk()
     else:
