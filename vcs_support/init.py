@@ -1,7 +1,7 @@
 # arch-tag: tla_load_dirs initializatoin
 
 from optparse import OptionParser
-from tla_support import util, commandver
+from vcs_support import util, commandver
 import sys
 
 def run(darcsdefault):
@@ -36,7 +36,7 @@ def run(darcsdefault):
 
     commandver.setscm(darcsdefault)
 
-    from tla_support import tla_wc, tla_interact
+    from vcs_support import tla_wc, tla_interact
 
     wc = tla_wc.wc(options.wc, verbose = options.verbose)
     if not wc.gettaggingmethod() in ['explicit', 'tagline']:
