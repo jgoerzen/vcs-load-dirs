@@ -1,4 +1,4 @@
-# Copyright (C) 2003 John Goerzen
+# Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -15,8 +15,8 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
-MASTERBASE := tla_load_dirs
-TOPNODE := tla_load_dirs
+MASTERBASE := vcs_load_dirs
+TOPNODE := vcs_load_dirs
 BASICDEPS := $(MASTERBASE).sgml
 #DOINDEX := yes
 DOINDEX := no
@@ -28,25 +28,33 @@ ps: $(MASTERBASE).ps
 html: html/index.html
 text: $(MASTERBASE).txt
 
-manpages: tla_load_dirs.1 darcs_load_dirs.1 baz_load_dirs.1 svk_load_dirs.1 git_load_dirs.1
+manpages: tla_load_dirs.1 darcs_load_dirs.1 baz_load_dirs.1 svk_load_dirs.1 git_load_dirs.1 hg_load_dirs.1
 %.1: %.sgml
 	docbook2man $<
 
-darcs_load_dirs.1: tla_load_dirs.1
-	sed -e s/tla_load_dirs/darcs_load_dirs/g \
-	    -e s/TLA_LOAD_DIRS/DARCS_LOAD_DIRS/g < $< > $@
+darcs_load_dirs.1: vcs_load_dirs.1
+	sed -e s/vcs_load_dirs/darcs_load_dirs/g \
+	    -e s/VCS_LOAD_DIRS/DARCS_LOAD_DIRS/g < $< > $@
 
-baz_load_dirs.1: tla_load_dirs.1
-	sed -e s/tla_load_dirs/baz_load_dirs/g \
-	    -e s/TLA_LOAD_DIRS/BAZ_LOAD_DIRS/g < $< > $@
+hg_load_dirs.1: vcs_load_dirs.1
+	sed -e s/vcs_load_dirs/hg_load_dirs/g \
+	    -e s/VCS_LOAD_DIRS/HG_LOAD_DIRS/g < $< > $@
 
-svk_load_dirs.1: tla_load_dirs.1
-	sed -e s/tla_load_dirs/svk_load_dirs/g \
-		-e s/TLA_LOAD_DIRS/SVK_LOAD_DIRS/g < $< > $@
+tla_load_dirs.1: tla_load_dirs.1
+	sed -e s/vcs_load_dirs/tla_load_dirs/g \
+	    -e s/VCS_LOAD_DIRS/TLA_LOAD_DIRS/g < $< > $@
 
-git_load_dirs.1: tla_load_dirs.1
-	sed -e s/tla_load_dirs/git_load_dirs/g \
-		-e s/TLA_LOAD_DIRS/GIT_LOAD_DIRS/g < $< > $@
+baz_load_dirs.1: vcs_load_dirs.1
+	sed -e s/vcs_load_dirs/baz_load_dirs/g \
+	    -e s/VCS_LOAD_DIRS/BAZ_LOAD_DIRS/g < $< > $@
+
+svk_load_dirs.1: vcs_load_dirs.1
+	sed -e s/vcs_load_dirs/svk_load_dirs/g \
+		-e s/VCS_LOAD_DIRS/SVK_LOAD_DIRS/g < $< > $@
+
+git_load_dirs.1: vcs_load_dirs.1
+	sed -e s/vcs_load_dirs/git_load_dirs/g \
+		-e s/VCS_LOAD_DIRS/GIT_LOAD_DIRS/g < $< > $@
 
 include sgml-common/Makefile.common
 
