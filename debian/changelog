@@ -1,3 +1,10 @@
+vcs-load-dirs (1.1.1) unstable; urgency=low
+
+  * Fixed Mercurial log summary recording.
+  * Noted program's new homepage.
+
+ -- John Goerzen <jgoerzen@complete.org>  Tue, 27 Feb 2007 03:04:54 -0600
+
 vcs-load-dirs (1.1.0) unstable; urgency=low
 
   * New version.
