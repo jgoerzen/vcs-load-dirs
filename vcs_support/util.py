@@ -1,5 +1,5 @@
 # arch-tag: tla support utilities 1062530003
-# Copyright (C) 2003 John Goerzen
+# Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
 #
 #    This program is free software; you can redistribute it and/or modify
