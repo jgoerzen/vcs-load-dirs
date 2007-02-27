@@ -17,7 +17,7 @@
 
 import util
 import os.path
-from commandver import cmd, isdarcs, issvk, isgit, vcscmd
+from commandver import cmd, isdarcs, issvk, isgit, ishg, vcscmd
 
 class wc:
     """Object for a working copy."""
@@ -51,7 +51,7 @@ class wc:
         return 1
 
     def gettaggingmethod(self):
-        if isdarcs() or isgit():
+        if isdarcs() or isgit() or ishg():
             return 'explicit'
         else:
             return util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd,
@@ -147,8 +147,6 @@ class wc:
         fd = open(self.logfn, "w")
         if isgit():
             fd.write("%s\n\n" % summary)
-        elif ishg():
-            fd.write("%s\n" % summary)
         elif not (isdarcs() or ishg()):
             fd.write("Summary: %s\n" % summary)
             fd.write("Keywords: \n\n")
@@ -170,7 +168,7 @@ class wc:
                           [cmd().commit, "-a", "-F", self.logfn])
 	    os.unlink(self.logfn)
         elif ishg():
-            util.chdircmd(self.wcpath, util.safeexec, tlxcmd,
+            util.chdircmd(self.wcpath, util.safeexec, vcscmd,
                           [cmd().commit, "-A", "-l", self.logfn])
             os.unlink(self.logfn)
         else:
