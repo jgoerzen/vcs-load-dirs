@@ -17,7 +17,7 @@
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import util
-tlasyn = None
+vcssyn = None
 vcsobj = None
 vcscmd = None
 darcs = False
@@ -64,39 +64,39 @@ def ishg():
     global hg
     return hg
 
-def gettlasyntax():
-    global tlasyn, vcsobj
-    if tlasyn != None:
-        return tlasyn
+def getvcssyntax():
+    global vcssyn, vcsobj
+    if vcssyn != None:
+        return vcssyn
 
     if isdarcs():
-        tlasyn = 'darcs'
+        vcssyn = 'darcs'
         vcsobj = Darcs()
     elif ishg():
-        tlasyn = 'hg'
+        vcssyn = 'hg'
         vcsobj = Hg()
     elif isgit():
-        tlasyn = 'Git'
+        vcssyn = 'Git'
         vcsobj = Git()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.0.') != -1:
-        tlasyn = '1.0'
+        vcssyn = '1.0'
         vcsobj = Tla10()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.1.') != -1:
-        tlasyn = '1.1'
+        vcssyn = '1.1'
         vcsobj = Tla11()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('tla-1.3.') != -1:
-        tlasyn = '1.3'
+        vcssyn = '1.3'
         vcsobj = Tla13()
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('baz Bazaar version 1.4.') != -1:
-        tlasyn = 'baz1.4'
+        vcssyn = 'baz1.4'
         vcsobj = Baz14()        
     elif util.getstdoutsafeexec(vcscmd, ['-V'])[0].find('This is svk') != -1:
-        tlasyn = 'svk'
+        vcssyn = 'svk'
         vcsobj = Svk()
     else:
-        tlasyn = '1.3'
+        vcssyn = '1.3'
         vcsobj = Tla13()
-    return tlasyn
+    return vcssyn
 
 class Tla10:
     tagging_method = 'tagging-method'
@@ -176,5 +176,5 @@ class Svk:
 
 def cmd():
     global vcsobj
-    gettlasyntax()
+    getvcssyntax()
     return vcsobj
