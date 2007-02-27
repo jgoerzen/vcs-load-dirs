@@ -1,4 +1,3 @@
-# arch-tag: tla support utilities 1062530003
 # Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
 #

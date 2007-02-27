@@ -1,4 +1,3 @@
-# arch-tag: documentation build system
 # Copyright (C) 2003 John Goerzen
 # <jgoerzen@complete.org>
 #

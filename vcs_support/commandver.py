@@ -1,4 +1,3 @@
-# arch-tag: tla version-specific command execution
 # Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
 #

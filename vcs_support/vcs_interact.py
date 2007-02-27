@@ -1,4 +1,3 @@
-# arch-tag: tla interaction 1062537893
 # Copyright (C) 2003-2007 John Goerzen
 # <jgoerzen@complete.org>
 #
