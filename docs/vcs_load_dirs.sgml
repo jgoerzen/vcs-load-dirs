@@ -255,13 +255,19 @@
       </para>
 
       <para>
+        The homepage for &vld; is
+        <ulink
+        url="http://software.complete.org/vcs-load-dirs"></ulink>
+      </para>
+      <para>
         This package may be downloaded from
         <ulink
           url="http://packages.debian.org/vcs-load-dirs"></ulink>.
         darcs users may also obtain the latest version with:
         <screen>
-$ darcs get http://darcs.complete.org/vcs-load-dirs
+$ darcs get --partial http://darcs.complete.org/vcs-load-dirs
         </screen>
+      </para>
     </refsect1>
 
     <refsect1>
