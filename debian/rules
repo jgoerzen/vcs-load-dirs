@@ -72,7 +72,7 @@ binary-arch: build install
 binary-indep: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs -i ChangeLog
+	dh_installchangelogs -i
 	dh_installdocs -i
 	dh_installexamples -i
 	dh_install -i
