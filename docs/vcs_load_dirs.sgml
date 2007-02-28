@@ -1,6 +1,5 @@
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
   <!ENTITY vld "<application>vcs_load_dirs</application>">
-  <!ENTITY OfflineIMAP "FIXME">
 ]>
 <!--      "file:///usr/share/sgml/docbook/dtd/xml/4.2/docbookx.dtd"> -->
 
@@ -50,6 +49,10 @@
         <group>
           <arg>-n</arg>
           <arg>--no-commit</arg>
+        </group>
+        <group>
+          <arg>-f</arg>
+          <arg>--fs-changes-only</arg>
         </group>
         <arg choice="plain">vendor_source_dir</arg>
       </cmdsynopsis>
@@ -192,6 +195,24 @@
           </listitem>
         </varlistentry>
 
+        <varlistentry><term>-n</term>
+          <term>--no-commit</term>
+          <listitem><para>
+              Do not commit changes to the target VCS.
+            </para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry><term>-f</term>
+          <term>--fs-changes-only</term>
+          <listitem><para>
+              Move files in the filesystem, but do not inform VCS of
+              changes.  You will almost certainly want to use this
+              with -n.
+            </para>
+          </listitem>
+        </varlistentry>
+              
         <varlistentry><term>-v</term>
           <term>--verbose</term>
           <listitem><para>Causes &vld; to display additional status
