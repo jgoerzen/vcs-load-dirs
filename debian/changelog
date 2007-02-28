@@ -5,6 +5,7 @@ vcs-load-dirs (1.1.2) unstable; urgency=low
   * Guido's patch for git summary was already applied.  Closes: #403505.
   * Fixed bug with Mercurial renames.
   * New option -f to request no changes other than commits to the VCS.
+  * Documented -n and -f in the manpages.
 
  -- John Goerzen <jgoerzen@complete.org>  Wed, 28 Feb 2007 05:32:53 -0600
 
