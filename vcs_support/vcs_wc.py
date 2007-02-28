@@ -88,7 +88,7 @@ class wc:
             print "Moving %s to %s" % (src, dest)
         if src[-1] == '/' \
                and dest[-1] == '/' \
-               and (not isdarcs() and not isgit()):
+               and ((not isdarcs()) and (not isgit()) and (not ishg())):
             # Dir to dir -- darcs mv will catch it already.
             # Git doesn't do rename recording, so don't worry about it?
             return
@@ -106,7 +106,7 @@ class wc:
             if (not os.path.exists(destdir)) and destdir != '':
                 self.makedirs(destdir)
             if not isdarcs() and (not isgit()) and (not ishg()):
-                # Darcs, hg, and git actually 
+                # Darcs, hg, and git actually do this when they move the tag
                 os.rename(src, dest)
 
         util.chdircmd(self.wcpath, doit)
