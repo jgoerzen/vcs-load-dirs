@@ -120,6 +120,9 @@ class interaction:
         
         while 1:
             self.update()
+            if self.wcobj.fsonly:
+                # Don't show this interface if we're not talking to the VCS
+                break
             if not (len(self.addedfiles) and len(self.deletedfiles)):
                 # Just ran update; don't do it again.
                 needsupdate = 0
