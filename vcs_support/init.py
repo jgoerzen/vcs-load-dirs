@@ -21,7 +21,7 @@ from vcs_support import util, commandver
 import sys
 
 def run(darcsdefault):
-    version = '1.1.2'
+    version = '1.1.3'
 
     parser = OptionParser(usage="usage: %prog [options] vendor_source_dir",
                           version=version)
