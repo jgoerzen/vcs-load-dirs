@@ -37,7 +37,7 @@ def run(darcsdefault):
                       default=False, help="Show more status information")
     parser.add_option("-f", "--fs-changes-only", action="store_true",
                       dest="fsonly", default=False,
-                      help="Issue no add/rm/mv commands to VCS, use with -n")
+                      help="Disable interactivity and issue no add/rm/mv commands to VCS, use with -n")
     parser.add_option("-n", "--no-commit", action="store_false", dest="docommit",
                       default=True, help="Do not commit the changes.")
 

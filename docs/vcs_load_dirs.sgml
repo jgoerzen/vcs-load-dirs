@@ -208,7 +208,7 @@
           <listitem><para>
               Move files in the filesystem, but do not inform VCS of
               changes.  You will almost certainly want to use this
-              with -n.
+              with -n.  This also suppresses the interactive interface.
             </para>
           </listitem>
         </varlistentry>
