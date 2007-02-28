@@ -61,7 +61,11 @@ def run(darcsdefault):
         sys.exit(1)
 
 
-    vcs_interact.interaction(wc, args[0], options.docommit, log = log,
-                             verbose = options.verbose,
-                             summary = options.summary).main()
+    iobj = vcs_interact.interaction(wc, args[0], options.docommit, log = log,
+                                    verbose = options.verbose,
+                                    summary = options.summary)
+    try:
+        iobj.main()
+    finally:
+        iobj.cleanup()
     
