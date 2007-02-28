@@ -1,3 +1,13 @@
+vcs-load-dirs (1.1.2) unstable; urgency=low
+
+  * Can now import directly from tar.gz, tar.bz2, and zip archives.
+    Closes: #235240.
+  * Guido's patch for git summary was already applied.  Closes: #403505.
+  * Fixed bug with Mercurial renames.
+  * New option -f to request no changes other than commits to the VCS.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 28 Feb 2007 05:32:53 -0600
+
 vcs-load-dirs (1.1.1) unstable; urgency=low
 
   * Fixed Mercurial log summary recording.
