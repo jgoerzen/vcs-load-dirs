@@ -18,6 +18,7 @@
 import sys, os
 import util
 from commandver import isdarcs
+from tempfile import mkdtemp
 
 class interaction:
     def __init__(self, wcobj, importdir, docommit, log = '', verbose = 0,
@@ -40,27 +41,28 @@ class interaction:
             self.tmpdir = self.importdir
 
             try:
-                if self.verb():
+                if self.verb:
                     print "Unpacking archive..."
 
                 if self.importfile.endswith(".tar.gz"):
-                    chdircmd(self.importdir, safeexec, "tar",
-                             ["-zxf", self.importfile])
+                    util.chdircmd(self.importdir, util.safeexec, "tar",
+                                  ["-zxf", self.importfile])
 
                 elif self.importfile.endswith(".tar.bz2"):
-                    chdircmd(self.importdir, safeexec, "tar",
-                             ["-jxf", self.importfile])
+                    util.chdircmd(self.importdir, util.safeexec, "tar",
+                                  ["-jxf", self.importfile])
                 elif self.importfile.endswith(".zip"):
-                    chdircmd(self.importdir, safeexec, "unzip", [self.importfile])
+                    util.chdircmd(self.importdir, util.safeexec, "unzip",
+                                  [self.importfile])
                 else:
-                    raise ExecProblem, "Unknown archive file type"
-            except e:
+                    raise IOError, "Unknown archive file type"
+            except:
                 self.cleanup()
-                raise e
+                raise
 
     def cleanup(self):
         if not (self.tmpdir is None):
-            safeexec("rm", ["-rf", self.tmpdir])
+            util.safeexec("rm", ["-rf", self.tmpdir])
             self.tmpdir = None
 
     def updateimportfiles(self):
