@@ -56,6 +56,14 @@ class interaction:
                                   [self.importfile])
                 else:
                     raise IOError, "Unknown archive file type"
+
+                # Many tarballs expand into just one single directory.
+                # Check to see if that's the case.
+
+                dents = os.listdir(self.importdir)
+                if len(dents) == 1 and os.path.isdir(self.importdir + "/" +
+                                                     dents[0]):
+                    self.importdir = self.importdir + "/" + dents[0]
             except:
                 self.cleanup()
                 raise
@@ -172,12 +180,17 @@ class interaction:
 
     def writelog(self):
         logtext = ""
+        if not (self.importfile is None):
+            importname = self.importfile
+        else:
+            importname = self.importdir
+            
         if self.summary:
             summary = self.summary
         else:
-            summary = "Imported %s" % os.path.basename(self.importdir)
+            summary = "Imported %s" % os.path.basename(importname)
         logtext += "Imported %s\ninto %s\n\n" % \
-                   (os.path.basename(self.importdir),
+                   (os.path.basename(importname),
                    self.wcobj.gettreeversion())
         logtext += self.log
         self.wcobj.makelog(summary, logtext)
