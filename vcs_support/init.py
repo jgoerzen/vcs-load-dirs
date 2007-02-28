@@ -35,6 +35,9 @@ def run(darcsdefault):
                       default=None, help="Set log summary message to MSG, overriding the default")
     parser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                       default=False, help="Show more status information")
+    parser.add_option("-f", "--fs-changes-only", action="store_true",
+                      dest="fsonly", default=False,
+                      help="Issue no add/rm/mv commands to VCS, use with -n")
     parser.add_option("-n", "--no-commit", action="store_false", dest="docommit",
                       default=True, help="Do not commit the changes.")
 
@@ -54,7 +57,8 @@ def run(darcsdefault):
 
     from vcs_support import vcs_wc, vcs_interact
 
-    wc = vcs_wc.wc(options.wc, verbose = options.verbose)
+    wc = vcs_wc.wc(options.wc, verbose = options.verbose,
+                   fsonly = options.fsonly)
     if not wc.gettaggingmethod() in ['explicit', 'tagline']:
         print "Working directory uses unsupported tagging method %s" % \
               wc.gettaggingmethod()

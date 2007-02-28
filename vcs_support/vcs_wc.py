@@ -22,9 +22,10 @@ from commandver import cmd, isdarcs, issvk, isgit, ishg, vcscmd
 class wc:
     """Object for a working copy."""
 
-    def __init__(self, wcpath, verbose = 0):
+    def __init__(self, wcpath, verbose = 0, fsonly = 0):
         self.wcpath = os.path.abspath(wcpath)
         self.verb = verbose
+        self.fsonly = fsonly
         if not self.wcverify():
             raise Exception, "%s is not a tla working copy" % self.wcpath
 
@@ -59,7 +60,7 @@ class wc:
 
     def gettree(self):
         return util.maketree(self.wcpath,
-                             ignore = [r'(^(\{arch\}$|,,|\.hg|\.hgtags|\.git|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
+                             ignore = [r'(^(\{arch\}$|,,|\.hg|\.hgtags|\.hgignore|\.git|_darcs|\.arch-ids$|\.arch-inventory$|\+\+)|/\.arch-ids/)'])
     
     def addtag(self, file):
         if self.verb:
@@ -74,7 +75,8 @@ class wc:
                 raise
         file = self.slashstrip(file)
         isdir = os.path.isdir(os.path.join(self.wcpath, file))
-        if (not ishg()) and ((not isdarcs()) or isdir):
+        if (not self.fsonly) and \
+               (not ishg()) and ((not isdarcs()) or isdir):
             # Darcs will see adds later, but we need to add dirs
             # now so darcs mv will work.
             #
@@ -93,8 +95,9 @@ class wc:
             # Git doesn't do rename recording, so don't worry about it?
             return
         src, dest = self.slashstrip(src, dest)
-        util.chdircmd(self.wcpath, util.safeexec, vcscmd,
-                      [cmd().move, src, dest])
+        if not self.fsonly:
+            util.chdircmd(self.wcpath, util.safeexec, vcscmd,
+                          [cmd().move, src, dest])
 
     def movefile(self, src, dest):
         if self.verb:
@@ -105,7 +108,8 @@ class wc:
             destdir = os.path.dirname(dest)
             if (not os.path.exists(destdir)) and destdir != '':
                 self.makedirs(destdir)
-            if not isdarcs() and (not isgit()) and (not ishg()):
+            if self.fsonly or \
+               (not isdarcs() and (not isgit()) and (not ishg())):
                 # Darcs, hg, and git actually do this when they move the tag
                 os.rename(src, dest)
 
@@ -122,7 +126,8 @@ class wc:
 
     def deltag(self, file):
     	# FXIME: what about git?
-        if (not isdarcs()) and (not ishg()):
+        if (not self.fsonly) and \
+               ((not isdarcs()) and (not ishg())):
             if self.verb:
                 print "Deleting %s" % file
             if os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file)):
