@@ -23,32 +23,40 @@ class interaction:
     def __init__(self, wcobj, importdir, docommit, log = '', verbose = 0,
                  summary = None):
         self.wcobj = wcobj
-        if os.path.isdir(importdir):
-            self.importdir = os.path.abspath(importdir)
-            self.importfile = None
-            self.tmpdir = None
-        else:
-            self.importfile = os.path.abspath(importdir)
-            # mkdtemp returns an absolute path
-            self.importdir = mkdtemp("-vcs-load-dirs", ",,unpack-", "..")
-            self.tmpdir = self.importdir
-            if self.verb():
-                print "Unpacking archive..."
-            if self.importfile.endswith(".tar.gz"):
-                chdircmd(self.importdir, safeexec, "tar",
-                         ["-zxf", self.importfile])
-            elif self.importfile.endswith(".tar.bz2"):
-                chdircmd(self.importdir, safeexec, "tar",
-                         ["-jxf", self.importfile])
-            elif self.importfile.endswith(".zip"):
-                chdircmd(self.importdir, safeexec, "unzip", [self.importfile])
-            else:
-                os.rmdir(self.importdir)
-                raise ExecProblem, "Unknown archive file type"
         self.log = log
         self.docommit = docommit
         self.verb = verbose
         self.summary = summary
+
+        if os.path.isdir(importdir):
+            self.importdir = os.path.abspath(importdir)
+            self.importfile = None
+            self.tmpdir = None
+
+        else:                           # Not a dir, try to unpack an archive.
+            self.importfile = os.path.abspath(importdir)
+            # mkdtemp returns an absolute path
+            self.importdir = mkdtemp("-vcs-load-dirs", ",,unpack-", "..")
+            self.tmpdir = self.importdir
+
+            try:
+                if self.verb():
+                    print "Unpacking archive..."
+
+                if self.importfile.endswith(".tar.gz"):
+                    chdircmd(self.importdir, safeexec, "tar",
+                             ["-zxf", self.importfile])
+
+                elif self.importfile.endswith(".tar.bz2"):
+                    chdircmd(self.importdir, safeexec, "tar",
+                             ["-jxf", self.importfile])
+                elif self.importfile.endswith(".zip"):
+                    chdircmd(self.importdir, safeexec, "unzip", [self.importfile])
+                else:
+                    raise ExecProblem, "Unknown archive file type"
+            except e:
+                self.cleanup()
+                raise e
 
     def cleanup(self):
         if not (self.tmpdir is None):
