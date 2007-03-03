@@ -138,7 +138,7 @@ class wc:
         self.summary = summary
         self.logtext = logtext
         if ishg() or isgit() or isdarcs():
-            logfn = self.wcpath + "../,,vcslog
+            logfn = self.wcpath + "/../,,vcslog"
 	else:
             logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd,
                                    ['make-log'])[0].strip()
