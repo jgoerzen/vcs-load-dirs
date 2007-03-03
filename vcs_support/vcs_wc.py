@@ -137,12 +137,8 @@ class wc:
     def makelog(self, summary, logtext):
         self.summary = summary
         self.logtext = logtext
-        if ishg():
-            logfn = ".hg/,,hglog"
-        elif isgit():
-            logfn = ",,gitlog"
-	elif isdarcs():
-            logfn = ",,darcslog"
+        if ishg() or isgit() or isdarcs():
+            logfn = self.wcpath + "../,,vcslog
 	else:
             logfn =  util.chdircmd(self.wcpath, util.getstdoutsafeexec, vcscmd,
                                    ['make-log'])[0].strip()
