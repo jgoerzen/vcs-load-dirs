@@ -138,7 +138,7 @@ class wc:
         self.summary = summary
         self.logtext = logtext
         if ishg():
-            logfn = ",,hglog"
+            logfn = ".hg/,,hglog"
         elif isgit():
             logfn = ",,gitlog"
 	elif isdarcs():
