@@ -125,7 +125,6 @@ class wc:
             util.safeexec("rm", ['-rf', fullfile])
 
     def deltag(self, file):
-    	# FXIME: what about git?
         if (not self.fsonly) and \
                ((not isdarcs()) and (not ishg())):
             if self.verb:
