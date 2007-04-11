@@ -132,7 +132,7 @@ class wc:
                 print "Deleting %s" % file
             if os.path.islink(os.path.join(self.wcpath,file)) or os.path.exists(os.path.join(self.wcpath, file)):
                 util.chdircmd(self.wcpath, util.safeexec, vcscmd,
-                          [cmd().delete, file])
+                          cmd().delete + [file])
 
     def makelog(self, summary, logtext):
         self.summary = summary

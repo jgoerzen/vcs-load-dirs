@@ -101,7 +101,7 @@ class Tla10:
     tagging_method = 'tagging-method'
     add = ['add-tag']
     move = 'move-tag'
-    delete = 'delete-tag'
+    delete = ['delete-tag']
     update = 'update --in-place .'
     replay = 'replay --in-place .'
     commit = 'commit'
@@ -111,7 +111,7 @@ class Tla11:
     tagging_method = 'id-tagging-method'
     add = ['add']
     move = 'move'
-    delete = 'delete'
+    delete = ['delete']
     update = 'update'
     replay = 'replay'
     commit = 'commit'
@@ -121,7 +121,7 @@ class Tla13:
     tagging_method = 'id-tagging-method'
     add = ['add-id']
     move = 'move-id'
-    delete = 'delete-id'
+    delete = ['delete-id']
     update = 'update'
     replay = 'replay'
     commit = 'commit'
@@ -131,7 +131,7 @@ class Baz14:
     tagging_method = 'id-tagging-method'
     add = ['add-id']
     move = 'move-id'
-    delete = 'delete-id'
+    delete = ['delete-id']
     update = 'update'
     replay = 'replay'
     commit = 'commit'    
@@ -159,7 +159,7 @@ class Git:
     tagging_method = None
     add = ['add']
     move = 'mv'
-    delete = 'rm'
+    delete = ['rm', '-r']
     update = 'checkout'
     replay = None 
     commit = 'commit'
@@ -168,7 +168,7 @@ class Svk:
 	tagging_method = None
 	add = ['add']
 	move = 'mv'
-	delete = 'rm'
+	delete = ['rm']
 	update = 'pull'
 	replay = 'pull'
 	commit = 'commit'
