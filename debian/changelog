@@ -1,3 +1,12 @@
+vcs-load-dirs (1.1.5) unstable; urgency=low
+
+  * Better git rm handling.  Patch from agx@sigxcpu.org.
+    Closes: #417307.
+  * Convert changelog to UTF-8.  Closes: #453970.  (And the merged
+    bugs from the other binary debs generated from this package.)
+
+ -- John Goerzen <jgoerzen@complete.org>  Sun, 10 Feb 2008 07:52:54 -0600
+
 vcs-load-dirs (1.1.4) unstable; urgency=low
 
   * Better documented -f
