@@ -1,3 +1,9 @@
+vcs-load-dirs (1.1.6) unstable; urgency=low
+
+  * Added Vcs-* and Homepage control lines.
+
+ -- John Goerzen <jgoerzen@complete.org>  Sat, 01 Mar 2008 20:49:13 -0600
+
 vcs-load-dirs (1.1.5) unstable; urgency=low
 
   * Better git rm handling.  Patch from agx@sigxcpu.org.
