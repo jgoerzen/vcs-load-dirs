@@ -1,3 +1,11 @@
+vcs-load-dirs (1.1.7) unstable; urgency=low
+
+  * Orphaning this package.  Removed references to my homepage and git
+    repo for them, as they may go away.
+  * ACK NMU.  Closes: #485912.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu, 20 Aug 2009 14:43:36 -0500
+
 vcs-load-dirs (1.1.6+nmu2) unstable; urgency=low
 
   * Non-maintainer upload.

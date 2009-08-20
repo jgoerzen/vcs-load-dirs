@@ -1,14 +1,11 @@
 Source: vcs-load-dirs
 Section: devel
 Priority: optional
-Maintainer: John Goerzen <jgoerzen@complete.org>
+Maintainer: Debian QA Group <packages@qa.debian.org>
 XS-Python-Version: current
 Build-Depends: debhelper (>= 5.0.37.2), python (>= 2.3)
 Build-Depends-Indep: gtk-doc-tools, sgml2x, docbook-utils, jade, python-dev, python-central (>= 0.5)
 Standards-Version: 3.7.2
-Homepage: http://software.complete.org/vcs-load-dirs
-Vcs-Git: git://git.complete.org/vcs-load-dirs
-Vcs-Browser: http://git.complete.org/vcs-load-dirs
 
 Package: tla-load-dirs
 Architecture: all
