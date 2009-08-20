@@ -1,3 +1,21 @@
+vcs-load-dirs (1.1.6+nmu2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Removed obsolete build directories from tarball, added by my previous
+    upload.
+
+ -- Ben Hutchings <ben@decadent.org.uk>  Sun, 29 Jun 2008 13:36:25 +0000
+
+vcs-load-dirs (1.1.6+nmu1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Disabled baz-load-dirs package.  Closes: #485912.
+  * Disabled svk-load-dirs package since svk is uninstallable.
+  * Moved debhelper and python to Build-Depends since they are needed by
+    debian/rules clean.
+
+ -- Ben Hutchings <ben@decadent.org.uk>  Sun, 29 Jun 2008 13:07:37 +0000
+
 vcs-load-dirs (1.1.6) unstable; urgency=low
 
   * Added Vcs-* and Homepage control lines.
